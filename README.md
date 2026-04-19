@@ -1,6 +1,6 @@
 # Selenium Capstone - Website Bán Khóa Học Online
 
-## Website demo test
+## Links
 
 - Website: `https://demo2.cybersoft.edu.vn/`
 - Thư mục lưu file manual TC (Excel): `manual-testcases/`
@@ -80,7 +80,7 @@ Trong đó:
 - `scope`: module/phần ảnh hưởng (có thể bỏ qua nếu không cần)
 - `mô tả`: viết ngắn, rõ ý, bắt đầu bằng động từ
 
-Các` `type` hay dùng:
+Các `type` hay dùng:
 - `feat`: thêm tính năng/testcase mới
 - `fix`: sửa lỗi
 - `docs`: cập nhật tài liệu (README, guideline...)
