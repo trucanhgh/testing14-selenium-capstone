@@ -1,5 +1,10 @@
 # Selenium Capstone - Website Bán Khóa Học Online
 
+## Website demo test
+
+- Website: `https://demo2.cybersoft.edu.vn/`
+- Thư mục lưu file manual TC (Excel): `manual-testcases/`
+
 ## Công nghệ sử dụng
 
 - `Java`: ngôn ngữ chính để viết framework và test script.
