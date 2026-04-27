@@ -3,21 +3,29 @@ package driver;
 import org.openqa.selenium.WebDriver;
 
 public class DriverFactory {
-    //race condition
+    private static final ThreadLocal<WebDriver> DRIVER = new ThreadLocal<>();
 
-    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-    //ThreadLocal: mỗi thread sẽ có một bản sao của biến này,
-    //đảm bảo rằng mỗi thread sẽ có một instance riêng biệt của WebDriver, tránh xung đột khi nhiều thread cùng truy cập và sử dụng WebDriver.
-
-    public static WebDriver getDriver(){
-        return driver.get();
+    public static WebDriver getDriver() {
+        return DRIVER.get();
     }
 
-    public static void setDriver(WebDriver driver){
-        DriverFactory.driver.set(driver);
+    public static void setDriver(WebDriver driver) {
+        DRIVER.set(driver);
     }
 
-    public static void removeDriverThreadLocal(){
-        driver.remove();
+    public static boolean hasDriver() {
+        return getDriver() != null;
+    }
+
+    public static void quitDriver() {
+        WebDriver driver = getDriver();
+        if (driver != null) {
+            driver.quit();
+        }
+        removeDriverThreadLocal();
+    }
+
+    public static void removeDriverThreadLocal() {
+        DRIVER.remove();
     }
 }

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Profile Suite">
+    <listeners>
+        <listener class-name="listeners.TestListener"/>
+    </listeners>
+    <parameter name="browser" value="chrome"/>
+    <test name="Auth Regression" preserve-order="true">
+        <classes>
+            <class name="testcase.ui.auth.LoginTest"/>
+            <class name="testcase.ui.profile.ProfileViewTest"/>
+            <class name="testcase.ui.profile.CourseTabTest"/>
+            <class name="testcase.ui.profile.EditProfileValidationTest"/>
+        </classes>
+    </test>
+</suite>
