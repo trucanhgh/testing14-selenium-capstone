@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.JavascriptExecutor;
-import org.testng.ITestResult;
 import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
@@ -46,14 +45,8 @@ public class BaseTest {
     }
 
     @AfterMethod
-    public void tearDownMethod(ITestResult testResult) {
-        LOG.info("End test method - handle result for method: {}", testResult.getName());
-        if (testResult.getStatus() == ITestResult.FAILURE) {
-            String testName = testResult.getName() != null ? testResult.getName() : testResult.getMethod().getMethodName();
-            ExtentReportManager.captureScreenshot(DriverFactory.getDriver(), testName);
-            Throwable throwable = testResult.getThrowable();
-            ExtentReportManager.fail(throwable != null ? throwable.toString() : "Test failed without throwable");
-        }
+    public void tearDownMethod() {
+        LOG.info("End test method");
     }
 
     @AfterClass

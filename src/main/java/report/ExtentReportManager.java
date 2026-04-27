@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 
 public class ExtentReportManager {
     private static ExtentReports extent;
-    private static ThreadLocal<ExtentTest> test = new ThreadLocal<>(); // mỗi thread 1 ExtentTest
+    private static final ThreadLocal<ExtentTest> test = new ThreadLocal<>(); // mỗi thread 1 ExtentTest
     private static final String REPORT_PATH = "test-output/ExtentReport_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_hh_mm_ss")) + ".html";
     private static final String SCREENSHOT_PATH = "test-output/screenshots/";
 
@@ -40,19 +40,31 @@ public class ExtentReportManager {
     }
 
     public static void info(String msg) {
-        getTest().info(msg);
+        if (getTest() != null) {
+            getTest().info(msg);
+        }
     }
 
     public static void pass(String msg) {
-        getTest().pass(msg);
+        if (getTest() != null) {
+            getTest().pass(msg);
+        }
     }
 
     public static void fail(String msg) {
-        getTest().fail(msg);
+        if (getTest() != null) {
+            getTest().fail(msg);
+        }
+    }
+
+    public static void skip(String msg) {
+        if (getTest() != null) {
+            getTest().skip(msg);
+        }
     }
 
     public static void captureScreenshot(WebDriver driver, String testName) {
-        if (driver == null || test.get() == null) {
+        if (driver == null || getTest() == null) {
             return;
         }
 

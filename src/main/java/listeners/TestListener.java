@@ -1,10 +1,12 @@
 package listeners;
 
+import driver.DriverFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import report.ExtentReportManager;
 
 
 public class TestListener implements ITestListener {
@@ -18,20 +20,33 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        LOG.info("onTestSuccess: " + result.getMethod().getMethodName() + " - PASSED");
+        String methodName = result.getMethod().getMethodName();
+        LOG.info("onTestSuccess: {} - PASSED", methodName);
+        ExtentReportManager.pass("PASSED: " + methodName);
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        LOG.info("onTestFailure: {} - FAILED", result.getMethod().getMethodName());
+        String methodName = result.getMethod().getMethodName();
+        LOG.info("onTestFailure: {} - FAILED", methodName);
+
         Throwable throwable = result.getThrowable();
-        LOG.error("Exception: {}", throwable != null ? throwable.toString() : "unknown");
-        LOG.info("Screenshot capture is handled by BaseTest + ExtentReportManager");
+        String errorDetail = throwable != null ? throwable.toString() : "Test failed without throwable";
+        LOG.error("Exception: {}", errorDetail);
+
+        ExtentReportManager.fail("FAILED: " + methodName);
+        ExtentReportManager.fail(errorDetail);
+        ExtentReportManager.captureScreenshot(DriverFactory.getDriver(), methodName);
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        LOG.info("onTestSkipped: {}", result.getMethod().getMethodName());
+        String methodName = result.getMethod().getMethodName();
+        LOG.info("onTestSkipped: {}", methodName);
+        Throwable throwable = result.getThrowable();
+        String skipReason = throwable != null ? throwable.toString() : "No skip reason";
+        ExtentReportManager.skip("SKIPPED: " + methodName);
+        ExtentReportManager.skip(skipReason);
     }
 
     @Override
