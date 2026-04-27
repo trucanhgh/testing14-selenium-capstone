@@ -9,7 +9,7 @@
 
     <test name="Auth Regression" preserve-order="true" verbose="2">
         <classes>
-            <class name="testcase.auth.LoginTest"/>
+            <class name="testcase.ui.auth.LoginTest"/>
         </classes>
     </test>
 </suite>
