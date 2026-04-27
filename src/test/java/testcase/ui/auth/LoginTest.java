@@ -1,10 +1,7 @@
 package testcase.ui.auth;
 
 import base.BaseTest;
-import driver.DriverFactory;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 
@@ -15,9 +12,11 @@ public class LoginTest extends BaseTest {
         String username = "trucanhtest";
         String password = "Abcd1234@";
 
-        WebDriver driver = DriverFactory.getDriver();
-        driver.manage().window().maximize();
-        driver.get("https://demo2.cybersoft.edu.vn/login");
+        maximizeWindow();
+        openUrl("/login");
+        waitForPageReady();
+
+        WebDriver driver = getDriver();
 
         LoginPage loginPage = new LoginPage(driver);
 

@@ -16,6 +16,7 @@ import java.lang.reflect.Method;
 
 public class BaseTest {
     private static final String DEFAULT_BASE_URL = "https://demo2.cybersoft.edu.vn";
+    private static final long DEFAULT_PAGE_READY_TIMEOUT_SECONDS = 20;
     protected final Logger LOG = LogManager.getLogger(getClass());
 
     @BeforeSuite
@@ -26,7 +27,7 @@ public class BaseTest {
 
     @BeforeClass
     @Parameters({"browser"})
-    public void setUpClass(@Optional String browserFromSuite) {
+    public void setUpClass(@Optional("chrome") String browserFromSuite) {
         String browser = resolveBrowser(browserFromSuite);
         LOG.info("Start class setup - initialize web driver for browser: {}", browser);
 
@@ -92,14 +93,23 @@ public class BaseTest {
 
     protected void openUrl(String urlOrPath) {
         WebDriver driver = getDriver();
-        String targetUrl = urlOrPath;
+        if (driver == null) {
+            throw new IllegalStateException("WebDriver is not initialized. Call openUrl() after setUpClass().");
+        }
 
-        if (urlOrPath != null && !urlOrPath.trim().isEmpty() && !urlOrPath.startsWith("http://") && !urlOrPath.startsWith("https://")) {
+        if (urlOrPath == null || urlOrPath.trim().isEmpty()) {
+            openBaseUrl();
+            return;
+        }
+
+        String targetUrl = urlOrPath.trim();
+
+        if (!targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
             String baseUrl = getBaseUrl();
-            if (urlOrPath.startsWith("/")) {
-                targetUrl = baseUrl + urlOrPath;
+            if (targetUrl.startsWith("/")) {
+                targetUrl = baseUrl + targetUrl;
             } else {
-                targetUrl = baseUrl + "/" + urlOrPath;
+                targetUrl = baseUrl + "/" + targetUrl;
             }
         }
 
@@ -114,6 +124,7 @@ public class BaseTest {
         }
     }
 
+    @SuppressWarnings("unused")
     protected void refreshPage() {
         WebDriver driver = getDriver();
         if (driver != null) {
@@ -122,12 +133,16 @@ public class BaseTest {
     }
 
     protected void waitForPageReady() {
+        long timeoutSeconds = Long.getLong("pageReadyTimeoutSeconds", DEFAULT_PAGE_READY_TIMEOUT_SECONDS);
+        waitForPageReady(timeoutSeconds);
+    }
+
+    protected void waitForPageReady(long timeoutSeconds) {
         WebDriver driver = getDriver();
         if (driver == null) {
             return;
         }
 
-        long timeoutSeconds = 20;
         long started = System.currentTimeMillis();
         while (System.currentTimeMillis() - started < timeoutSeconds * 1000L) {
             Object readyState = ((JavascriptExecutor) driver).executeScript("return document.readyState");
