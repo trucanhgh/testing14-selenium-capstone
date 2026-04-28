@@ -1,5 +1,6 @@
 package pages;
 
 public class BlogPage {
-    //test commit
+    //test commit\
+    //blog page
 }
