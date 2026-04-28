@@ -1,0 +1,152 @@
+{
+  "info": {
+    "_postman_id": "e9f1af67-72a0-43e3-8f10-f8f7f570c3d2",
+    "name": "Manual Testing Capstone",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49455367"
+  },
+  "item": [
+    {
+      "name": "Đăng nhập",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "tokencybersoft",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJUZXN0aW5nIDE0IiwiSGV0SGFuU3RyaW5nIjoiMTUvMTAvMjAyNiIsIkhldEhhblRpbWUiOiIxNzkyMDIyNDAwMDAwIiwibmJmIjoxNzY3ODkxNjAwLCJleHAiOjE3OTIxNzAwMDB9.DLVjgmwvBK8rzcWWgQA7dYOQuJZ55Vm5MThmUNcx8As",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"taiKhoan\": \"trucanh\",\r\n    \"matKhau\": \"Abcd1234@\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://elearningnew.cybersoft.edu.vn/api/QuanLyNguoiDung/DangNhap",
+          "protocol": "https",
+          "host": [
+            "elearningnew",
+            "cybersoft",
+            "edu",
+            "vn"
+          ],
+          "path": [
+            "api",
+            "QuanLyNguoiDung",
+            "DangNhap"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Quản lý thông tin cá nhân",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidHJ1Y2FuaCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkhWIiwibmJmIjoxNzc0MTc1OTg5LCJleHAiOjE3NzQxNzk1ODl9.r9-s8yrTz1Q29mVKuFsoWQ_1oIvsnuU7wx5-htI74yc",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "tokencybersoft",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJUZXN0aW5nIDE0IiwiSGV0SGFuU3RyaW5nIjoiMTUvMTAvMjAyNiIsIkhldEhhblRpbWUiOiIxNzkyMDIyNDAwMDAwIiwibmJmIjoxNzY3ODkxNjAwLCJleHAiOjE3OTIxNzAwMDB9.DLVjgmwvBK8rzcWWgQA7dYOQuJZ55Vm5MThmUNcx8As",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"taiKhoan\": \"trucanh\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://elearningnew.cybersoft.edu.vn/api/QuanLyNguoiDung/ThongTinTaiKhoan",
+          "protocol": "https",
+          "host": [
+            "elearningnew",
+            "cybersoft",
+            "edu",
+            "vn"
+          ],
+          "path": [
+            "api",
+            "QuanLyNguoiDung",
+            "ThongTinTaiKhoan"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cập nhật thông tin",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Hủy ghi danh",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidHJ1Y2FuaCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkhWIiwibmJmIjoxNzc0MTc1OTg5LCJleHAiOjE3NzQxNzk1ODl9.r9-s8yrTz1Q29mVKuFsoWQ_1oIvsnuU7wx5-htI74yc",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "tokencybersoft",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJUZXN0aW5nIDE0IiwiSGV0SGFuU3RyaW5nIjoiMTUvMTAvMjAyNiIsIkhldEhhblRpbWUiOiIxNzkyMDIyNDAwMDAwIiwibmJmIjoxNzY3ODkxNjAwLCJleHAiOjE3OTIxNzAwMDB9.DLVjgmwvBK8rzcWWgQA7dYOQuJZ55Vm5MThmUNcx8As",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"taiKhoan\": \"trucanh\",\r\n    \"maKhoaHoc\": \"ádfghjkiuhb\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://elearningnew.cybersoft.edu.vn/api/QuanLyKhoaHoc/HuyGhiDanh",
+          "protocol": "https",
+          "host": [
+            "elearningnew",
+            "cybersoft",
+            "edu",
+            "vn"
+          ],
+          "path": [
+            "api",
+            "QuanLyKhoaHoc",
+            "HuyGhiDanh"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

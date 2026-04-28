@@ -6,11 +6,10 @@ import org.openqa.selenium.WebDriver;
 
 @SuppressWarnings("unused")
 public class FooterComponent extends BasePage {
-    // TODO: Replace placeholders with stable locators from the real DOM.
-    private final By byFooter = By.xpath("//footer");
-    private final By byFooterLogo = By.xpath("//footer//*[contains(@class,'logo') or contains(@alt,'logo')]");
-    private final By byContactInfo = By.xpath("//footer//*[contains(normalize-space(),'Liên hệ') or contains(normalize-space(),'Contact')]");
-    private final By byCopyright = By.xpath("//footer//*[contains(normalize-space(),'Copyright') or contains(normalize-space(),'Bản quyền')]");
+    private final By byFooter = By.xpath("//*[@class=\"footerPages\"]");
+    private final By byFooterLogo = By.xpath("//*[@class=\"mr-5 textLogo\"]");
+    private final By byContactInfo = By.xpath("(//*[@class=\"menuFooter\"])[1]");
+    private final By byCopyright = By.xpath("//*[@class=\"textCardTitle\"]");
 
     public FooterComponent(WebDriver driver) {
         super(driver);

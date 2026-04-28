@@ -6,17 +6,16 @@ import org.openqa.selenium.WebDriver;
 
 @SuppressWarnings("unused")
 public class NavbarComponent extends BasePage {
-    // TODO: Replace placeholders with stable locators from the real DOM.
-    private final By byLogo = By.xpath("//nav//*[contains(@class,'logo') or contains(@alt,'logo')]");
-    private final By bySearchInput = By.xpath("//nav//input[@type='search' or contains(@placeholder,'Search') or contains(@placeholder,'Tìm kiếm')]");
-    private final By byCategoryMenu = By.xpath("//nav//*[normalize-space()='Danh mục' or normalize-space()='Category']");
-    private final By byCoursesMenu = By.xpath("//nav//*[normalize-space()='Khóa học' or normalize-space()='Courses']");
-    private final By byBlogMenu = By.xpath("//nav//*[normalize-space()='Blog']");
-    private final By byEventMenu = By.xpath("//nav//*[normalize-space()='Sự kiện' or normalize-space()='Events']");
-    private final By byInfoMenu = By.xpath("//nav//*[normalize-space()='Thông tin' or normalize-space()='Info']");
-    private final By byAvatar = By.xpath("//nav//*[@role='button' or contains(@class,'avatar') or contains(@alt,'avatar')]");
-    private final By byProfileLink = By.xpath("//*[normalize-space()='Thông tin cá nhân' or normalize-space()='Profile']");
-    private final By byLogoutLink = By.xpath("//*[normalize-space()='Đăng xuất' or normalize-space()='Logout']");
+    private final By byLogo = By.xpath("//*[@class=\"textLogo active\"]");
+    private final By bySearchInput = By.xpath("//*[@class=\"searchForm\"]");
+    private final By byCategoryMenu = By.xpath("//*[@class=\"courseCate\"]");
+    private final By byCoursesMenu = By.xpath("(//li//a[@href=\"/khoahoc\" and text()=\"Khóa học\"]) [1]");
+    private final By byBlogMenu = By.xpath("(//li//a[@href=\"/blog\" and text()=\"Blog\"]) [1]");
+    private final By byEventMenu = By.xpath("(//li//a[@href=\"/sukien\" and text()=\"Sự kiện\"]) [1]");
+    private final By byInfoMenu = By.xpath("(//li//a[@href=\"/thongtin\" and text()=\"Thông tin\"]) [1]");
+    private final By byAvatar = By.xpath("//img[@class=\"avatar\"]");
+    private final By byProfileLink = By.xpath("//a[@href=\"/thongtincanhan\"]");
+    private final By byLogoutLink = By.xpath("//span[@class=\"logout\"]");
 
     public NavbarComponent(WebDriver driver) {
         super(driver);
