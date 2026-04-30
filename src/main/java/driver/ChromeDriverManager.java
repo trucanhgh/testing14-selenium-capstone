@@ -10,6 +10,10 @@ public class ChromeDriverManager extends DriverManager {
         if (Boolean.getBoolean("headless")) {
             options.addArguments("--headless=new");
             options.addArguments("--window-size=1920,1080");
+            options.addArguments("--remote-allow-origins=*");
+            options.addArguments("--disable-notifications");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
         }
         this.driver = new ChromeDriver(options);
     }

@@ -14,6 +14,7 @@ public class EditProfileModal extends CommonPage {
 	private final By bySubmitButton = By.xpath("//button[@class='btnSubmit']");
 	private final By byCloseButton = By.xpath("//button[@class='btnSubmit btnClose']");
 	private final By byDismissIcon = By.xpath("//button[@class='close']");
+
 	// Locator động cho Error Message
 	private final String dynamicErrorXpath = "//div[@class='errorMessage'][preceding-sibling::input[1][@name='%s']]";
 
@@ -36,19 +37,24 @@ public class EditProfileModal extends CommonPage {
 
 	// --- Validation Methods (Gom nhóm) ---
 
-	//Kiểm tra hiển thị lỗi theo tên field (hoTen, matKhau, email, soDT)
+	// Kiểm tra hiển thị lỗi theo tên field (hoTen, matKhau, email, soDT)
 	public boolean isFieldErrorDisplayed(String fieldName) {
 		By errorLocator = By.xpath(String.format(dynamicErrorXpath, fieldName));
 		return isDisplayed(errorLocator, TimeOutConstant.TIME_OUT_DEFAULT);
 	}
 
-	//Lấy nội dung lỗi theo tên field
+	// Lấy nội dung lỗi theo tên field
 	public String getFieldErrorMessage(String fieldName) {
 		By errorLocator = By.xpath(String.format(dynamicErrorXpath, fieldName));
 		return getText(errorLocator);
 	}
 
 	// --- State Methods ---
+
+	// Đợi modal hiển thị đầy đủ (Dùng khi gọi từ ProfilePage)
+	public void waitForModal() {
+		waitForVisible(byModalTitle, TimeOutConstant.TIME_OUT_MEDIUM);
+	}
 
 	public boolean isModalDisplayed() {
 		return isDisplayed(byModalTitle, TimeOutConstant.TIME_OUT_MEDIUM);

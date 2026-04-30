@@ -15,6 +15,11 @@ public class NavbarComponent extends BasePage {
     private final By byInfoMenu = By.xpath("(//li//a[@href=\"/thongtin\" and text()=\"Thông tin\"]) [1]");
     private final By byAvatar = By.xpath("//img[@class=\"avatar\"]");
     private final By byProfileLink = By.xpath("//a[@href=\"/thongtincanhan\"]");
+    private final By byLoginLink = By.xpath("//button[@class='btnGlobal']");
+
+    public void clickLoginLink() {
+        click(byLoginLink);
+    }
     private final By byLogoutLink = By.xpath("//span[@class=\"logout\"]");
 
     public NavbarComponent(WebDriver driver) {

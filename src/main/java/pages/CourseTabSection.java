@@ -8,10 +8,10 @@ import org.openqa.selenium.WebElement;
 public class CourseTabSection extends CommonPage {
 
 	// Locator constants
-	private final By bySearchInput = By.xpath("//div[@class=\"findCourseNet\"]//input[@class=\"searchForm\"]");
-	private final By byCourseList = By.xpath("//section[@class=\"myCourseInfo\"]");
+	private final By bySearchInput = By.xpath("//div[@class='findCourseNet']//input[@class='searchForm']");
+	private final By byCourseList = By.xpath("//section[@class='myCourseInfo']");
 	private final By byEmptyState = By.xpath("//*[contains(normalize-space(),'Không có') or contains(normalize-space(),'No course')]");
-	private final By byCourseCard = By.xpath("//div[@class=\"myCourseItem\"]");
+	private final By byCourseCard = By.xpath("//div[@class='myCourseItem']");
 
 	public CourseTabSection(WebDriver driver) {
 		super(driver);
@@ -78,7 +78,7 @@ public class CourseTabSection extends CommonPage {
 		if (courseIndex < 1) {
 			throw new IllegalArgumentException("Course index must be >= 1");
 		}
-		By courseTitle = By.xpath(String.format("(//div[@class=\"myCourseItem\"])[%d]//div[@class=\"courseTitle\"]", courseIndex));
+		By courseTitle = By.xpath(String.format("(//div[@class='myCourseItem'])[%d]//div[@class='courseTitle']", courseIndex));
 		return getText(courseTitle);
 	}
 
@@ -103,13 +103,13 @@ public class CourseTabSection extends CommonPage {
 
 	// Dynamic locator for cancel button by course index (1-based)
 	private By getCancelButtonLocatorByIndex(int courseIndex) {
-		return By.xpath(String.format("(//div[@class=\"myCourseItem\"])[%d]//button[text()=\"Hủy khóa học\"]", courseIndex));
+		return By.xpath(String.format("(//div[@class='myCourseItem'])[%d]//button[text()='Hủy khóa học']", courseIndex));
 	}
 
 	// Dynamic locator for cancel button by course name
 	private By getCancelButtonLocatorByName(String courseName) {
 		return By.xpath(String.format(
-				"//div[@class=\"myCourseItem\"][.//div[@class=\"courseTitle\" and contains(text(), '%s')]]//button[text()=\"Hủy khóa học\"]",
+				"//div[@class='myCourseItem'][.//div[@class='courseTitle' and contains(text(), '%s')]]//button[text()='Hủy khóa học']",
 				courseName));
 	}
 
@@ -118,7 +118,7 @@ public class CourseTabSection extends CommonPage {
 		if (courseIndex < 1) {
 			throw new IllegalArgumentException("Course index must be >= 1");
 		}
-		By courseCardLocator = By.xpath(String.format("(//div[@class=\"myCourseItem\"])[%d]", courseIndex));
+		By courseCardLocator = By.xpath(String.format("(//div[@class='myCourseItem'])[%d]", courseIndex));
 		return waitForVisible(courseCardLocator, TimeOutConstant.TIME_OUT_MEDIUM);
 	}
 

@@ -15,6 +15,11 @@ dependencies {
     implementation 'com.aventstack:extentreports:5.1.2'
     implementation 'org.apache.logging.log4j:log4j-core:2.25.3'
     implementation 'org.apache.logging.log4j:log4j-api:2.25.3'
+    // Thư viện RestAssured để gọi API (dùng testImplementation nếu file UserAPI nằm trong thư mục test)
+    implementation 'io.rest-assured:rest-assured:5.4.0'
+
+    // Thư viện Jackson để tự động parse Java Map sang JSON
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
 }
 
 compileJava.options.encoding = 'UTF-8'
