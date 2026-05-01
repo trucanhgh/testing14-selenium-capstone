@@ -14,35 +14,15 @@ public class EditProfileValidationTest extends ProfileTestBase {
     private ProfilePage profilePage;
     private EditProfileModal editProfileModal;
 
-    // Thông tin tài khoản sinh tự động qua API
-    private String dynamicUser;
-    private String dynamicEmail;
-
-    private final String dynamicPass = "ValidPass123@";
-    private final String dynamicPhone = "0901234567";
-
-    // Email có sẵn trên hệ thống dùng để test case trùng Email
-    private final String existingSystemEmail = "abbcccdddd@gmail.com";
-
     @BeforeClass
-    public void setupDynamicAccount() {
-        long timestamp = System.currentTimeMillis();
-        dynamicUser = "auto_" + timestamp;
-        dynamicEmail = "auto_" + timestamp + "@test.com";
+    public void setupDataAndLogin() {
+        // 1. Tạo account qua API
+        createAccountViaAPI();
 
-        // Gọi API tạo User trước khi test UI
-        int statusCode = UserAPI.registerUser(
-                dynamicUser, dynamicPass, "Test Auto Name", dynamicEmail, dynamicPhone, "GP01"
-        ).getStatusCode();
-
-        Assert.assertEquals(statusCode, 200, "API Tạo Account thất bại! Không thể tiếp tục Test.");
-    }
-
-    @BeforeMethod
-    public void setupAndOpenModal() {
-        // Dùng hàm từ ProfileTestBase: Tự động xóa cookie, login và nhảy vào trang Profile
+        // 2. Login và đi thẳng đến trang Profile (Chỉ chạy 1 lần duy nhất)
         profilePage = loginAndGoToProfile(dynamicUser, dynamicPass);
-        // Mở modal để bắt đầu test
+
+        // 3. Mở sẵn Modal để chuẩn bị cho test đầu tiên
         editProfileModal = profilePage.openEditProfileModal();
     }
     // ==========================================
