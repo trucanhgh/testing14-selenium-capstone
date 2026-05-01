@@ -1,14 +1,11 @@
 package testcase.ui.profile;
 
 import api.UserAPI;
-import components.NavbarComponent;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.EditProfileModal;
-import pages.LoginPage;
 import pages.ProfilePage;
 import testdata.ProfileData;
 
@@ -42,34 +39,10 @@ public class EditProfileValidationTest extends ProfileTestBase {
     }
 
     @BeforeMethod
-    public void loginAndOpenModal() {
-        WebDriver driver = getDriver();
-        openBaseUrl();
-
-        // Đợi trang web load hoàn toàn script
-        waitForPageReady(20);
-
-        NavbarComponent navbar = new NavbarComponent(driver);
-
-        LOG.info("Đang nhấn nút Đăng nhập trên Navbar...");
-        navbar.clickLoginLink();
-
-        // Khởi tạo LoginPage và thực hiện đăng nhập
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.inputUsername(dynamicUser);
-        loginPage.inputPassword(dynamicPass);
-        loginPage.clickLoginBtn();
-
-        // Đợi login xong quay về trang chủ
-        waitForPageReady(20);
-
-        // Sau khi login thành công, nút Avatar mới xuất hiện
-        LOG.info("Đang mở trang Profile...");
-        navbar.clickAvatar();
-        navbar.openProfileLink();
-
-        profilePage = new ProfilePage(driver);
-        profilePage.waitForPageLoaded();
+    public void setupAndOpenModal() {
+        // Dùng hàm từ ProfileTestBase: Tự động xóa cookie, login và nhảy vào trang Profile
+        profilePage = loginAndGoToProfile(dynamicUser, dynamicPass);
+        // Mở modal để bắt đầu test
         editProfileModal = profilePage.openEditProfileModal();
     }
     // ==========================================
