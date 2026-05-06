@@ -25,10 +25,19 @@ public class EditProfileModal extends CommonPage {
 	// --- Action Methods ---
 
 	public void fillForm(String fullName, String password, String email, String phone) {
+		// Clear form trước khi fill để tránh dữ liệu cũ bị giữ lại
+		clearForm();
 		clearAndType(byFullNameInput, fullName);
 		clearAndType(byPasswordInput, password);
 		clearAndType(byEmailInput, email);
 		clearAndType(byPhoneInput, phone);
+	}
+
+	public void clearForm() {
+		clearAndType(byFullNameInput, "");
+		clearAndType(byPasswordInput, "");
+		clearAndType(byEmailInput, "");
+		clearAndType(byPhoneInput, "");
 	}
 
 	public void submit() { click(bySubmitButton); }

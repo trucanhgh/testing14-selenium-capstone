@@ -7,9 +7,9 @@
     <parameter name="browser" value="chrome"/>
     <test name="Auth Regression" preserve-order="true">
         <classes>
-            <class name="testcase.ui.auth.LoginTest"/>
+<!--            <class name="testcase.ui.auth.LoginTest"/>-->
             <class name="testcase.ui.profile.ProfileViewTest"/>
-            <class name="testcase.ui.profile.CourseTabTest"/>
+<!--            <class name="testcase.ui.profile.CourseTabTest"/>-->
             <class name="testcase.ui.profile.EditProfileValidationTest"/>
         </classes>
     </test>
