@@ -1,31 +1,47 @@
 package testcase.ui.profile;
 
+import api.UserAPI;
 import base.BaseTest;
 import components.NavbarComponent;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import pages.LoginPage;
 import pages.ProfilePage;
 
 public abstract class ProfileTestBase extends BaseTest {
 
-    /**
-     * Tái sử dụng luồng thao tác tự nhiên từ UI (Trang chủ -> Đăng nhập -> Profile)
-     * để tránh lỗi crash do ép URL.
-     */
+    // Chuyển access modifier sang protected để các class con gọi được
+    protected String dynamicUser;
+    protected String dynamicEmail;
+    protected final String dynamicPass = "ValidPass123@";
+    protected final String dynamicPhone = "0901234567";
+    protected final String existingSystemEmail = "abbcccdddd@gmail.com";
+
+
+    // 1. Helper Method: Tạo tài khoản
+    protected void createAccountViaAPI() {
+        long timestamp = System.currentTimeMillis();
+        dynamicUser = "auto_" + timestamp;
+        dynamicEmail = "auto_" + timestamp + "@test.com";
+
+        int statusCode = UserAPI.registerUser(
+                dynamicUser, dynamicPass, "Test Auto Name", dynamicEmail, dynamicPhone, "GP01"
+        ).getStatusCode();
+
+        Assert.assertEquals(statusCode, 200, "API Tạo Account thất bại!");
+        LOG.info("Đã tạo user thành công qua API: " + dynamicUser);
+    }
+
     protected ProfilePage loginAndGoToProfile(String username, String password) {
         WebDriver driver = getDriver();
 
-        // Dọn dẹp session trước khi chạy để test case độc lập
-        driver.manage().deleteAllCookies();
-
-        // 1. Mở trang chủ và đợi script load xong (Logic cũ của bạn)
+        // 1. Mở trang chủ và đợi script load xong\
         openBaseUrl();
         waitForPageReady(20);
 
         NavbarComponent navbar = new NavbarComponent(driver);
 
         // 2. Click nút Đăng nhập trên Navbar
-        LOG.info("Đang nhấn nút Đăng nhập trên Navbar...");
         navbar.clickLoginLink();
 
         // 3. Thực hiện đăng nhập
@@ -38,7 +54,6 @@ public abstract class ProfileTestBase extends BaseTest {
         waitForPageReady(20);
 
         // 5. Mở trang Profile từ Avatar
-        LOG.info("Đang mở trang Profile...");
         navbar.clickAvatar();
         navbar.openProfileLink();
 
