@@ -2,7 +2,6 @@ package pages;
 
 import base.BasePage;
 import components.NavbarComponent;
-// import components.FooterComponent; // Mở comment nếu bạn có dùng
 import constants.TimeOutConstant;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
