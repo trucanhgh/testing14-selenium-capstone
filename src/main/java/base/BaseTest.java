@@ -79,7 +79,7 @@ public class BaseTest {
         }
         return DEFAULT_BASE_URL;
     }
-
+    protected WebDriver driver;
     protected void openBaseUrl() {
         openUrl(getBaseUrl());
     }

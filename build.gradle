@@ -25,7 +25,6 @@ tasks.withType(JavaCompile) {
 
 test {
     useTestNG {
-        suites 'src/test/resources/regression-test.xml'
         useDefaultListeners = true
         outputDirectory = file("$projectDir/test-output")
     }
