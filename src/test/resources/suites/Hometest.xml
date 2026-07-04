@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true"
+          name="Home Page Tests">
+        <classes>
+            <class name="testcase.ui.HomePageTest.HomePage_01_BannerTest">
+                <methods>
+                    <include name="verifyBannerDisplaysCorrectly"/>
+                    <include name="verifyStartButtonNavigation"/>
+                </methods>
+            </class>
+            <class name="testcase.ui.HomePageTest.HomePage_02_IntroductionTest">
+                <methods>
+                    <include name="verifyCourseSectionDisplayedCorrectly"/>
+                    <include name="verifyCourseCardHoverEffect"/>
+                    <include name="verifyCourseCardUI"/>
+                </methods>
+            </class>
+            <class name="testcase.ui.HomePageTest.HomePage_03_CourseTest">
+                <methods>
+                    <include name="verifyCourseTitles"/>
+                    <include name="verifyCourseCardInformation"/>
+                    <include name="verifyHoverCourseCard"/>
+                    <include name="verifyClickCourseCard"/>
+                </methods>
+            </class>
+            <class name="testcase.ui.HomePageTest.HomePage_04_StatisticTest">
+                <methods><include name="verifyStatisticIcons"/>
+                    <include name="verifyStatisticTitles"/>
+                    <include name="verifyStatisticNumbers"/>
+                </methods>
+            </class>
+            <class name="testcase.ui.HomePageTest.HomePage_05_InstructorTest">
+                <methods>
+                    <include name="verifyInstructorSectionDisplayedCorrectly"/>
+                    <include name="verifyInstructorHoverEffect"/>
+                    <include name="verifyClickInstructorCard"/>
+                </methods>
+            </class>
+            <class name="testcase.ui.HomePageTest.HomePage_06_TestimonialTest">
+                <methods>
+                    <include name="verifyStudentReviewDisplayedCorrectly"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
