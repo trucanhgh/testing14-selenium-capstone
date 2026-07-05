@@ -1,69 +1,65 @@
 package testcase.ui.profile;
 
+import api.UserAPI;
 import base.BaseTest;
-import org.openqa.selenium.WebDriver;
-import org.testng.SkipException;
 import components.NavbarComponent;
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import pages.LoginPage;
 import pages.ProfilePage;
 
 public abstract class ProfileTestBase extends BaseTest {
 
-    protected WebDriver openProfileAsLoggedInUser() {
-        String username = resolveCredential("test.username", "TEST_USERNAME");
-        String password = resolveCredential("test.password", "TEST_PASSWORD");
+    // Chuyển access modifier sang protected để các class con gọi được
+    protected String dynamicUser;
+    protected String dynamicEmail;
+    protected final String dynamicPass = "ValidPass123@";
+    protected final String dynamicPhone = "0901234567";
+    protected final String existingSystemEmail = "abbcccdddd@gmail.com";
 
-        if (isBlank(username) || isPlaceholder(username) || isBlank(password) || isPlaceholder(password)) {
-            throw new SkipException("Profile UI tests require test.username and test.password (system property or env var).");
-        }
 
-        openBaseUrl();
-        waitForPageReady();
+    // 1. Helper Method: Tạo tài khoản
+    protected void createAccountViaAPI() {
+        long timestamp = System.currentTimeMillis();
+        dynamicUser = "auto_" + timestamp;
+        dynamicEmail = "auto_" + timestamp + "@test.com";
 
+        int statusCode = UserAPI.registerUser(
+                dynamicUser, dynamicPass, "Test Auto Name", dynamicEmail, dynamicPhone, "GP01"
+        ).getStatusCode();
+
+        Assert.assertEquals(statusCode, 200, "API Tạo Account thất bại!");
+        LOG.info("Đã tạo user thành công qua API: " + dynamicUser);
+    }
+
+    protected ProfilePage loginAndGoToProfile(String username, String password) {
         WebDriver driver = getDriver();
+
+        // 1. Mở trang chủ và đợi script load xong\
+        openBaseUrl();
+        waitForPageReady(20);
+
+        NavbarComponent navbar = new NavbarComponent(driver);
+
+        // 2. Click nút Đăng nhập trên Navbar
+        navbar.clickLoginLink();
+
+        // 3. Thực hiện đăng nhập
         LoginPage loginPage = new LoginPage(driver);
         loginPage.inputUsername(username);
         loginPage.inputPassword(password);
         loginPage.clickLoginBtn();
 
-        waitForPageReady();
-        return driver;
-    }
+        // 4. Đợi quá trình gọi API login hoàn tất và render lại UI
+        waitForPageReady(20);
 
-    protected ProfilePage openProfilePage() {
-        WebDriver driver = openProfileAsLoggedInUser();
-
-        // Entry flow may be adjusted later if the actual product uses a different navigation path.
-        NavbarComponent navbar = new NavbarComponent(driver);
+        // 5. Mở trang Profile từ Avatar
         navbar.clickAvatar();
         navbar.openProfileLink();
 
         ProfilePage profilePage = new ProfilePage(driver);
         profilePage.waitForPageLoaded();
+
         return profilePage;
     }
-
-    protected String resolveCredential(String systemPropertyName, String envName) {
-        String value = System.getProperty(systemPropertyName);
-        if (!isBlank(value)) {
-            return value.trim();
-        }
-
-        value = System.getenv(envName);
-        if (!isBlank(value)) {
-            return value.trim();
-        }
-
-        return "REPLACE_ME";
-    }
-
-    protected boolean isBlank(String value) {
-        return value == null || value.trim().isEmpty();
-    }
-
-    protected boolean isPlaceholder(String value) {
-        return value != null && value.trim().equalsIgnoreCase("REPLACE_ME");
-    }
 }
-
-
