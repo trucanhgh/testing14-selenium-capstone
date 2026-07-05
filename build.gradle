@@ -16,6 +16,7 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-core:2.25.3'
     implementation 'org.apache.logging.log4j:log4j-api:2.25.3'
     implementation 'org.apache.logging.log4j:log4j-slf4j2-impl:2.25.3'
+
     // Thư viện RestAssured để gọi API (dùng testImplementation nếu file UserAPI nằm trong thư mục test)
     implementation 'io.rest-assured:rest-assured:5.4.0'
 
@@ -31,7 +32,14 @@ tasks.withType(JavaCompile) {
 
 test {
     useTestNG {
-        suites 'src/test/resources/regression-test.xml'
+        // Kiểm tra nếu người dùng có truyền tham số -Psuite từ dòng lệnh
+        if (project.hasProperty('suite')) {
+            suites "src/test/resources/suites/${project.property('suite')}.xml"
+        } else {
+            // Nếu không truyền tham số, mặc định chạy full-suite.xml
+            suites "src/test/resources/suites/full-suite.xml"
+        }
+
         useDefaultListeners = true
         outputDirectory = file("$projectDir/test-output")
     }
