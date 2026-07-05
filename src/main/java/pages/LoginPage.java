@@ -36,4 +36,3 @@ public class LoginPage extends CommonPage {
         click(byLoginBtn, timeoutInSeconds);
     }
 }
-//a[contains(@href,'/chitiet')]
