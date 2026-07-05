@@ -34,6 +34,7 @@ public class EditProfileModal extends CommonPage {
 	}
 
 	public void clearForm() {
+		// Sửa lại để đảm bảo xóa sạch (sau khi nâng cấp hàm ở BasePage, truyền "" sẽ chỉ kích hoạt lệnh xóa)
 		clearAndType(byFullNameInput, "");
 		clearAndType(byPasswordInput, "");
 		clearAndType(byEmailInput, "");

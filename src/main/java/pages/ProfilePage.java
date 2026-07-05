@@ -17,9 +17,21 @@ public class ProfilePage extends CommonPage {
 	private final By byEditButton = By.xpath("//button[@data-toggle='modal']");
 	private final By byProfileAvatar = By.xpath("//div[@class='infoLeft']//img");
 
-	private final By byDisplayName = By.xpath("//section[@class='userInfo']//h3");
-	private final By byDisplayEmail = By.xpath("//p[contains(text(),'Email')]/span");
-	private final By byDisplayPhone = By.xpath("//p[contains(text(),'Số điện thoại')]/span");
+	// Khai báo chính xác locator cho popup SweetAlert
+	private final By successPopupTitle = By.xpath("//div[@class='swal-title' and text()='Cập nhật thành công']");
+	// Khai báo chính xác locator cho popup SweetAlert dựa trên thẻ HTML bạn cung cấp
+	private final By emailAlreadyExistPopupTitle = By.xpath("//div[@class='swal-title' and text()='Email đã tồn tại!']");
+
+	// ================= LOCATORS TRONG PROFILEPAGE.JAVA =================
+
+	// 1. Tên hiển thị (Nơi text 'trúc anh' hiển thị ở phần thông tin chính giữa)
+	private final By byDisplayName = By.xpath("//section[@class='userInfo']//p[contains(normalize-space(), 'Họ và tên')]//span");
+
+	// 2. Email hiển thị
+	private final By byDisplayEmail = By.xpath("//section[@class='userInfo']//p[contains(normalize-space(), 'Email')]//span");
+
+	// 3. Số điện thoại hiển thị
+	private final By byDisplayPhone = By.xpath("//section[@class='userInfo']//p[contains(normalize-space(), 'Số điện thoại')]//span");
 
 	// ================= CONSTRUCTOR =================
 	public ProfilePage(WebDriver driver) {
@@ -52,14 +64,10 @@ public class ProfilePage extends CommonPage {
 		click(byProfileAvatar);
 	}
 
-	/**
-	 * Mở Edit Modal và khởi tạo luôn đối tượng Modal tiếp theo.
-	 * Áp dụng Fluent Page Object (Ví dụ: profilePage.openEditProfileModal().fillForm(...))
-	 */
 	public EditProfileModal openEditProfileModal() {
 		click(byEditButton);
 		EditProfileModal modal = new EditProfileModal(driver);
-		modal.waitForModal(); // Chờ modal load xong rồi mới trả về
+		modal.waitForModal();
 		return modal;
 	}
 
@@ -68,22 +76,31 @@ public class ProfilePage extends CommonPage {
 	}
 
 	// ================= STATE & WAITS (KIỂM TRA TRẠNG THÁI) =================
+
+	/**
+	 * BỔ SUNG HÀM: Kiểm tra hiển thị Popup SweetAlert thành công
+	 * Sử dụng hàm isDisplayed có truyền timeout để chờ popup render xong hiệu ứng ẩn/hiển thị
+	 */
+	public boolean isSuccessPopupDisplayed() {
+		return isDisplayed(successPopupTitle, TimeOutConstant.TIME_OUT_MEDIUM);
+	}
+
+	public	boolean isEmailAlreadyExistPopupDisplayed() {
+		return isDisplayed(emailAlreadyExistPopupTitle, TimeOutConstant.TIME_OUT_MEDIUM);
+	}
+
 	public void waitForPageLoaded() {
 		waitForVisible(byProfileHeader, TimeOutConstant.TIME_OUT_MEDIUM);
 		waitForVisible(byProfileTabBar, TimeOutConstant.TIME_OUT_MEDIUM);
 		waitForPageReady(TimeOutConstant.TIME_OUT_MEDIUM);
 	}
 
-	/**
-	 * Hàm check tổng thể trang Profile đã load xong các phần quan trọng
-	 */
 	public boolean isProfilePageLoaded() {
 		return isDisplayed(byProfileHeader, TimeOutConstant.TIME_OUT_MEDIUM)
 				&& isDisplayed(byPersonalInfoSection, 0)
 				&& isDisplayed(byEditButton, 0);
 	}
 
-	// --- Các hàm kiểm tra lẻ (Giữ lại để bạn dùng cho các assert chi tiết) ---
 	public boolean isProfileOverviewDisplayed() {
 		return isDisplayed(byProfileHeader, TimeOutConstant.TIME_OUT_MEDIUM)
 				&& isDisplayed(byProfileTabBar, TimeOutConstant.TIME_OUT_MEDIUM)

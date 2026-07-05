@@ -131,8 +131,16 @@ public class BasePage {
     public void clearAndType(By locator, String value, long timeoutInSec) {
         WebElement element = waitForVisible(locator, timeoutInSec);
         LOG.info("Clear and type into locator: {}", locator);
-        element.clear();
-        element.sendKeys(value);
+
+        // 1. Click bôi đen toàn bộ dữ liệu cũ (Giả lập hành vi người dùng)
+        element.click();
+        element.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        element.sendKeys(Keys.BACK_SPACE);
+
+        // 2. Chỉ nhập chuỗi mới nếu giá trị truyền vào không rỗng
+        if (value != null && !value.isEmpty()) {
+            element.sendKeys(value);
+        }
     }
 
     public void clearAndType(By locator, String value) {

@@ -18,12 +18,12 @@ public class ProfileData {
     public static Object[][] getPasswordInvalidData() {
         return new Object[][]{
                 {"", "Mật khẩu không được để trống", "Để trống Mật khẩu"},
-                {"Abc123@", "Mật khẩu phải ít nhất 8 tự gồm chữ hoa, chữ thường, số, và kí tự đặc biệt", "Nhập 7 ký tự"},
-                {"12345678@", "Mật khẩu phải ít nhất 8 tự gồm chữ hoa, chữ thường, số, và kí tự đặc biệt", "Thiếu chữ"},
-                {"Abcdefgh@", "Mật khẩu phải ít nhất 8 tự gồm chữ hoa, chữ thường, số, và kí tự đặc biệt", "Thiếu số"},
-                {"Abcd1234", "Mật khẩu phải ít nhất 8 tự gồm chữ hoa, chữ thường, số, và kí tự đặc biệt", "Thiếu KT đặc biệt"},
-                {"abcd1234@", "Mật khẩu phải ít nhất 8 tự gồm chữ hoa, chữ thường, số, và kí tự đặc biệt", "Thiếu in hoa"},
-                {"ABCD1234@", "Mật khẩu phải ít nhất 8 tự gồm chữ hoa, chữ thường, số, và kí tự đặc biệt", "Thiếu in thường"}
+                {"Abc123@", "Mật khẩu phải ít nhất 8 tự gồm chữ, số, và kí tự đặc biệt", "Nhập 7 ký tự"},
+                {"12345678@", "Mật khẩu phải ít nhất 8 tự gồm chữ, số, và kí tự đặc biệt", "Thiếu chữ"},
+                {"Abcdefgh@", "Mật khẩu phải ít nhất 8 tự gồm chữ, số, và kí tự đặc biệt", "Thiếu số"},
+                {"Abcd1234", "Mật khẩu phải ít nhất 8 tự gồm chữ, số, và kí tự đặc biệt", "Thiếu KT đặc biệt"},
+                {"abcd1234@", "Mật khẩu phải ít nhất 8 tự gồm chữ, số, và kí tự đặc biệt", "Thiếu in hoa"},
+                {"ABCD1234@", "Mật khẩu phải ít nhất 8 tự gồm chữ, số, và kí tự đặc biệt", "Thiếu in thường"}
         };
     }
 
