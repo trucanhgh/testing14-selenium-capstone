@@ -5,6 +5,5 @@ public class TimeOutConstant {
     public static final long TIME_OUT_MEDIUM = 15;
     public static final long TIME_OUT_LONG = 20;
     public static final long TIME_OUT_LONGEST  = 30;
-    public static final String EXPECTED_RATING = "4.9";
 
 }

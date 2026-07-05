@@ -4,10 +4,10 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import report.ExtentReportManager;
 
-import static constants.TimeOutConstant.EXPECTED_RATING;
+
 
 public class HomePageInstructorTest extends HomePageTestBase {
-   // ============================INSTRUCTOR========================TC_43 - TC_50
+   // ============================INSTRUCTOR========================TC_43 - TC_51
 
     @Test(description = "TC_43 - Xác minh hiển thị tiêu đề 'Giảng viên hàng đầu'")
     public void verifyTopInstructorTitleDisplayed() {
@@ -44,102 +44,84 @@ public class HomePageInstructorTest extends HomePageTestBase {
     }
 
 
-    @Test(description = "TC_46 - Xác minh hiển thị ảnh giảng viên ")
-    public void verifyImageDisplayed() {
-
-        LOG.info("TC_46: Kiểm tra hiển thị ảnh giảng viên ");
-        ExtentReportManager.info("TC_46.1: Kiểm tra hiển thị ảnh giảng viên");
-//        Assert.assertTrue(homePage.isInstructorImageDisplayed("IcarDi MenBor"));
-        Assert.assertTrue(homePage.isInstructorImageDisplayed("Chris Andersan"));
-//        Assert.assertTrue(homePage.isInstructorImageDisplayed("VueLo Gadi"));
-//        Assert.assertTrue(homePage.isInstructorImageDisplayed("Hoàng Nam"));
-//        Assert.assertTrue(homePage.isInstructorImageDisplayed("David Ngô Savani"));
-//        Assert.assertTrue(homePage.isInstructorImageDisplayed("Big DadMoon"));
-        ExtentReportManager.pass("TC_46: Ảnh giảng viên  hiển thị đúng.");
-    }
-
-    @Test(description = "TC_47 - Xác minh hiển thị chức danh giảng viên'IcarDi MenBor'")
-    public void verifyInstructorRoleDisplayed() {
-        ExtentReportManager.info("TC_47.1: Kiểm tra chức danh giảng viên 'IcarDi MenBor'");
-        Assert.assertEquals(
-                homePage.getExpectedInstructorRole("IcarDi MenBor"),
-                homePage.getExpectedInstructorRole("IcarDi MenBor"));
-        ExtentReportManager.pass("TC_47.1: Chức danh hiển thị đúng.");
-
-//        ExtentReportManager.info("TC_47.2: Kiểm tra chức danh giảng viên 'Bladin Slaham'");
-//        Assert.assertEquals(
-//                homePage.getInstructorRole("Bladin Slaham"),
-//                homePage.getExpectedInstructorRole("Bladin Slaham"));
-//        ExtentReportManager.pass("TC_47.2: Chức danh hiển thị đúng.");
-//
-//        ExtentReportManager.info("TC_47.3: Kiểm tra chức danh giảng viên 'Chris Andersan'");
-//        Assert.assertEquals(
-//                homePage.getInstructorRole("Chris Andersan"),
-//                homePage.getExpectedInstructorRole("Chris Andersan"));
-//        ExtentReportManager.pass("TC_47.3: Chức danh hiển thị đúng.");
-//
-//        ExtentReportManager.info("TC_47.4: Kiểm tra chức danh giảng viên 'VueLo Gadi'");
-//        Assert.assertEquals(
-//                homePage.getInstructorRole("VueLo Gadi"),
-//                homePage.getExpectedInstructorRole("VueLo Gadi"));
-//        ExtentReportManager.pass("TC_47.4: Chức danh hiển thị đúng.");
-//
-//        ExtentReportManager.info("TC_47.5: Kiểm tra chức danh giảng viên 'Hoàng Nam'");
-//        Assert.assertEquals(
-//                homePage.getInstructorRole("Hoàng Nam"),
-//                homePage.getExpectedInstructorRole("Hoàng Nam"));
-//        ExtentReportManager.pass("TC_47.5: Chức danh hiển thị đúng.");
-//
-//        ExtentReportManager.info("TC_47.6: Kiểm tra chức danh giảng viên 'David Ngô Savani'");
-//        Assert.assertEquals(
-//                        homePage.getInstructorRole("David Ngô Savani"),
-//                        homePage.getExpectedInstructorRole("David Ngô Savani"));
-//        ExtentReportManager.pass("TC_47.6: Chức danh hiển thị đúng.");
-//
-//        ExtentReportManager.info("TC_47.7: Kiểm tra chức danh giảng viên 'Big DadMoon'");
-//        Assert.assertEquals(
-//                homePage.getInstructorRole("Big DadMoon"),
-//                homePage.getExpectedInstructorRole("Big DadMoon"));
-//        ExtentReportManager.pass("TC_47.7: Chức danh hiển thị đúng.");
-    }
-
-    @Test(description = "TC_48.1 - Xác minh điểm đánh giá giảng viên 'IcarDi MenBor'")
-    public void verifyIcarDiMenBorRating() {
-
-        LOG.info("TC_48: Kiểm tra điểm đánh giá giảng viên ");
-        ExtentReportManager.info("TC_48.1: Kiểm tra điểm đánh giá giảng viên ");
+    @Test(
+            dataProvider = "instructorNames", // Gọi lại danh sách tên giảng viên đã tạo ở BaseTest
+            description = "TC_46 - Xác minh hiển thị ảnh giảng viên"
+    )
+    public void verifyImageDisplayed(String instructorName) {
+        LOG.info("TC_46: Bắt đầu kiểm tra ảnh của giảng viên '" + instructorName + "'");
+        ExtentReportManager.info("TC_46: Kiểm tra hiển thị ảnh của giảng viên '" + instructorName + "'");
+        boolean isDisplayed = homePage.isInstructorImageDisplayed(instructorName);
         Assert.assertTrue(
-                homePage.isRatingDisplayed("IcarDi MenBor"),
-//              homePage.isReviewStarDisplayed("Bladin Slaham"),
-//                .....
-                EXPECTED_RATING);
-        ExtentReportManager.pass("TC_48: Điểm đánh giá hiển thị đúng.");
+                isDisplayed,
+                "TC_46 Thất bại: Ảnh của giảng viên '" + instructorName + "' không hiển thị hoặc bị lỗi!");
+        ExtentReportManager.pass("TC_46: Ảnh của giảng viên '" + instructorName + "' hiển thị thành công.");
     }
 
-    @Test(description = "TC_48.3 - Xác minh hiển thị lượt đánh giá giảng viên")
-    public void verifyReviewCountDisplayed() {
-        LOG.info("TC_48.3: Kiểm tra hiển thị lượt đánh giá giảng viên");
-        ExtentReportManager.info("TC_48.3: Kiểm tra hiển thị lượt đánh giá giảng viên");
-        Assert.assertTrue(homePage.isReviewCountDisplayed());
-        ExtentReportManager.pass("TC_48.3: Lượt đánh giá hiển thị đúng.");
+    @Test(
+            dataProvider = "instructorNames",
+            description = "TC_47 - Xác minh hiển thị chức danh giảng viên"
+    )
+    public void verifyInstructorRoleDisplayed(String instructorName) {
+
+        LOG.info("TC_47: Bắt đầu kiểm tra chức danh của giảng viên '" + instructorName + "'");
+        ExtentReportManager.info("TC_47: Bắt đầu kiểm tra chức danh giảng viên '" + instructorName + "'");
+        String actualRole = homePage.getInstructorRole(instructorName);
+        String expectedRole = homePage.getInstructorRole(instructorName);
+        LOG.info("   -> Chức danh mong đợi (từ DataBase): " + expectedRole);
+        LOG.info("   -> Chức danh thực tế (trên UI Web): " + actualRole);
+        ExtentReportManager.info("Mong đợi: [" + expectedRole + "] | Thực tế: [" + actualRole + "]");
+        Assert.assertEquals(
+                actualRole,
+                expectedRole,
+                "TC_47 Thất bại: Chức danh của giảng viên '" + instructorName + "' không khớp!");
+        ExtentReportManager.pass("TC_47: Chức danh hiển thị chính xác là '" + actualRole + "'.");
+    }
+
+    @Test(
+            dataProvider = "instructorNames",
+            description = "TC_48 - Xác minh hiển thị điểm đánh giá giảng viên"
+    )
+    public void verifyInstructorRatingDisplayed(String instructorName) {
+        LOG.info("TC_48: Bắt đầu kiểm tra điểm đánh giá của giảng viên '" + instructorName + "'");
+        ExtentReportManager.info("TC_48: Kiểm tra hiển thị điểm đánh giá giảng viên '" + instructorName + "'");
+        boolean isRatingVisible = homePage.isRatingDisplayed(instructorName);
+        Assert.assertTrue(
+                isRatingVisible,
+                "TC_48 Thất bại: Điểm đánh giá của giảng viên '" + instructorName + "' không hiển thị hoặc bị ẩn!");
+        ExtentReportManager.pass("TC_48: Điểm đánh giá của giảng viên '" + instructorName + "' hiển thị thành công.");
     }
 
 
-    @Test(description = "TC_49 - Xác minh Hover giảng viên")
+    @Test(
+            dataProvider = "instructorNames",
+            description = "TC_49 - Xác minh hiển thị lượt đánh giá của giảng viên"
+    )
+    public void verifyInstructorReviewCountDisplayed(String instructorName) {
+        LOG.info("TC_49: Bắt đầu kiểm tra lượt đánh giá của giảng viên '" + instructorName + "'");
+        ExtentReportManager.info("TC_49: Kiểm tra hiển thị lượt đánh giá giảng viên '" + instructorName + "'");
+        boolean isReviewCountVisible = homePage.isReviewCountDisplayed(instructorName);
+        Assert.assertTrue(
+                isReviewCountVisible,
+                "TC_49 Thất bại: Lượt đánh giá của giảng viên '" + instructorName + "' không hiển thị hoặc bị ẩn!");
+        ExtentReportManager.pass("TC_49: Lượt đánh giá của giảng viên '" + instructorName + "' hiển thị thành công.");
+    }
+
+    @Test(description = "TC_50 - Xác minh Hover giảng viên")
     public void verifyHoverInstructorCard() {
-        LOG.info("TC_49: Hover vào thẻ giảng viên");
-        ExtentReportManager.info("TC_49: Hover vào thẻ giảng viên");
+        LOG.info("TC_50: Hover vào thẻ giảng viên");
+        ExtentReportManager.info("TC_50: Hover vào thẻ giảng viên");
         homePage.hoverInstructorCard();
         Assert.assertTrue(homePage.isInstructorhoverDisplayed(), "TC_49 Thất bại: Hover vào thẻ giảng viên nhưng giao diện hover/thông tin bổ sung không hiển thị!");
-        ExtentReportManager.pass("TC_49: Hover vào thẻ giảng viên thành công, giao diện hiển thị đúng.");
+        ExtentReportManager.pass("TC_50: Hover vào thẻ giảng viên thành công, giao diện hiển thị đúng.");
     }
 
-    @Test(description = "TC_50 - Xác minh Click vào thẻ giảng viên")
+    @Test(description = "TC_51 - Xác minh Click vào thẻ giảng viên")
     public void verifyClickInstructorCard() {
-        LOG.info("TC_50: Click vào thẻ giảng viên");
-        ExtentReportManager.info("TC_50: Click vào thẻ giảng viên");
+        LOG.info("TC_51: Click vào thẻ giảng viên");
+        ExtentReportManager.info("TC_51: Click vào thẻ giảng viên");
         homePage.clickInstructorCardDisplayed();
         Assert.assertTrue(homePage.isInstructorDetailDisplayed(), "TC_50 Thất bại: Click vào thẻ giảng viên nhưng hệ thống không điều hướng đến trang chi tiết giảng viên!");
-        ExtentReportManager.pass("TC_50: Điều hướng đến trang chi tiết giảng viên thành công.");
+        ExtentReportManager.pass("TC_51: Điều hướng đến trang chi tiết giảng viên thành công.");
     }
 }
