@@ -85,8 +85,6 @@ public class ProfileViewTest extends ProfileTestBase {
         getDriver().manage().window().setSize(new Dimension(375, 667));
         profilePage.waitForPageReady(5);
 
-        // Trên Mobile, left sidebar thường sẽ ẩn đi hoặc chuyển thành toggle/nằm dọc.
-        // Tùy theo thiết kế bạn có thể kiểm tra xem nó còn hiển thị hay không hoặc layout cân đối.
         Assert.assertTrue(profilePage.isProfilePageLoaded(), "Giao diện trang bị vỡ trên Mobile!");
 
         // Trả lại kích thước Maximize cho các test case sau

@@ -19,12 +19,11 @@ public class ProfilePage extends CommonPage {
 
 	// Khai báo chính xác locator cho popup SweetAlert
 	private final By successPopupTitle = By.xpath("//div[@class='swal-title' and text()='Cập nhật thành công']");
-	// Khai báo chính xác locator cho popup SweetAlert dựa trên thẻ HTML bạn cung cấp
 	private final By emailAlreadyExistPopupTitle = By.xpath("//div[@class='swal-title' and text()='Email đã tồn tại!']");
 
 	// ================= LOCATORS TRONG PROFILEPAGE.JAVA =================
 
-	// 1. Tên hiển thị (Nơi text 'trúc anh' hiển thị ở phần thông tin chính giữa)
+	// 1. Tên hiển thị
 	private final By byDisplayName = By.xpath("//section[@class='userInfo']//p[contains(normalize-space(), 'Họ và tên')]//span");
 
 	// 2. Email hiển thị
