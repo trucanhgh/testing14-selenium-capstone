@@ -3,6 +3,7 @@ package testcase.ui.profile;
 import api.UserAPI;
 import base.BaseTest;
 import components.NavbarComponent;
+import io.restassured.response.Response; // Thêm import này
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import pages.LoginPage;
@@ -10,15 +11,13 @@ import pages.ProfilePage;
 
 public abstract class ProfileTestBase extends BaseTest {
 
-    // Chuyển access modifier sang protected để các class con gọi được
     protected String dynamicUser;
     protected String dynamicEmail;
     protected final String dynamicPass = "ValidPass123@";
     protected final String dynamicPhone = "0901234567";
     protected final String existingSystemEmail = "abbcccdddd@gmail.com";
 
-
-    // 1. Helper Method: Tạo tài khoản
+    // 1. Helper Method: Tạo tài khoản độc lập
     protected void createAccountViaAPI() {
         long timestamp = System.currentTimeMillis();
         dynamicUser = "auto_" + timestamp;
@@ -32,28 +31,55 @@ public abstract class ProfileTestBase extends BaseTest {
         LOG.info("Đã tạo user thành công qua API: " + dynamicUser);
     }
 
+    /**
+     * Tự động Đăng nhập API -> Lấy Token -> Ghi danh danh sách khóa học cho User động vừa tạo
+     * Giúp chuẩn bị trước data sạch hoàn toàn cho UI Test
+     */
+    /**
+     * Ghi danh danh sách khóa học trực tiếp cho User động bằng token hệ thống
+     */
+    /**
+     * Ghi danh danh sách khóa học cho User động bằng cách lấy và sử dụng Access Token
+     */
+    protected void enrollCoursesForDynamicUserViaAPI(String[] maKhoaHocList) {
+        // 1. Gọi API login chính tài khoản vừa tạo để lấy Bearer Token học viên
+        Response loginRes = UserAPI.loginUser(dynamicUser, dynamicPass);
+        Assert.assertEquals(loginRes.getStatusCode(), 200, "API Login để lấy Token học viên bị thất bại!");
+
+        String userToken = loginRes.jsonPath().getString("accessToken");
+        if (userToken == null) {
+            userToken = loginRes.jsonPath().getString("token"); // Dự phòng trường hợp key trả về tên khác
+        }
+        Assert.assertNotNull(userToken, "Không lấy được mã Access Token của user từ API Login!");
+
+        // 2. Tiến hành ghi danh hàng loạt qua token vừa lấy
+        for (String maKhoaHoc : maKhoaHocList) {
+            Response enrollRes = UserAPI.enrollCourseViaAPI(maKhoaHoc, dynamicUser, userToken);
+
+            if (enrollRes.getStatusCode() != 200) {
+                LOG.error("Ghi danh thất bại cho khóa học: " + maKhoaHoc + ". Response từ server: " + enrollRes.asString());
+            }
+            Assert.assertEquals(enrollRes.getStatusCode(), 200, "API Ghi danh khóa học " + maKhoaHoc + " bị lỗi!");
+        }
+        LOG.info("Đã ghi danh thành công " + maKhoaHocList.length + " khóa học bằng Token học viên cho: " + dynamicUser);
+    }
+
     protected ProfilePage loginAndGoToProfile(String username, String password) {
         WebDriver driver = getDriver();
 
-        // 1. Mở trang chủ và đợi script load xong\
         openBaseUrl();
         waitForPageReady(20);
 
         NavbarComponent navbar = new NavbarComponent(driver);
-
-        // 2. Click nút Đăng nhập trên Navbar
         navbar.clickLoginLink();
 
-        // 3. Thực hiện đăng nhập
         LoginPage loginPage = new LoginPage(driver);
         loginPage.inputUsername(username);
         loginPage.inputPassword(password);
         loginPage.clickLoginBtn();
 
-        // 4. Đợi quá trình gọi API login hoàn tất và render lại UI
         waitForPageReady(20);
 
-        // 5. Mở trang Profile từ Avatar
         navbar.clickAvatar();
         navbar.openProfileLink();
 

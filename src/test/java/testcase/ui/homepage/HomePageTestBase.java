@@ -1,4 +1,4 @@
-package testcase.ui.homePage;
+package testcase.ui.homepage;
 
 import base.BaseTest;
 import org.testng.annotations.BeforeMethod;

@@ -1,6 +1,7 @@
 package testcase.ui.profile;
 
 import api.UserAPI;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -51,9 +52,15 @@ public class EditProfileValidationTest extends ProfileTestBase {
 
     @Test(priority = 3, dataProvider = "passwordInvalidData", dataProviderClass = ProfileData.class)
     public void verifyPasswordValidation(String password, String expectedMsg, String desc) {
-        editProfileModal.fillForm("Valid Name", password, dynamicEmail, dynamicPhone);
-        Assert.assertTrue(editProfileModal.isFieldErrorDisplayed("matKhau"), "Không hiển thị lỗi cho: " + desc);
-        Assert.assertEquals(editProfileModal.getFieldErrorMessage("matKhau"), expectedMsg);
+        try {
+            editProfileModal.fillForm("Valid Name", password, dynamicEmail, dynamicPhone);
+            Assert.assertTrue(editProfileModal.isFieldErrorDisplayed("matKhau"), "Không hiển thị lỗi cho: " + desc);
+            Assert.assertEquals(editProfileModal.getFieldErrorMessage("matKhau"), expectedMsg);
+        } finally {
+            // Luôn tắt modal cũ đi và mở lại modal mới để làm sạch trạng thái cho row data tiếp theo
+            editProfileModal.closeWithIcon();
+            editProfileModal = profilePage.openEditProfileModal();
+        }
     }
 
     @Test(priority = 4, dataProvider = "emailInvalidData", dataProviderClass = ProfileData.class)
@@ -70,31 +77,35 @@ public class EditProfileValidationTest extends ProfileTestBase {
         Assert.assertEquals(editProfileModal.getFieldErrorMessage("soDT"), expectedMsg);
     }
 
-//    // ==========================================
-//    // 3. LUỒNG LOGIC: TRÙNG EMAIL & CẬP NHẬT THÀNH CÔNG
-//    // ==========================================
-//    @Test(description = "Xác minh báo lỗi khi nhập Email đã liên kết với tài khoản khác")
-//    public void verifyEmailAlreadyExists() {
-//        editProfileModal.fillForm("New Name", dynamicPass, existingSystemEmail, dynamicPhone);
-//        editProfileModal.submit();
-//
-//        Assert.assertTrue(editProfileModal.isFieldErrorDisplayed("email"), "Không hiển thị lỗi trùng Email!");
-//        Assert.assertEquals(editProfileModal.getFieldErrorMessage("email"), "Email đã tồn tại!");
-//    }
-//
-//    @Test(description = "Cập nhật thành công với dữ liệu mới và hợp lệ")
-//    public void verifyUpdateProfileSuccessfully() {
-//        String updatedName = "Trúc Anh " + System.currentTimeMillis();
-//        String updatedEmail = "updated_" + System.currentTimeMillis() + "@test.com";
-//
-//        editProfileModal.fillForm(updatedName, "Abcd123@", updatedEmail, "0123456789");
-//        editProfileModal.submit();
-//
-//        // Kiểm tra hiển thị Popup SweetAlert (bạn đã add vào CommonPage)
-//        Assert.assertTrue(profilePage.isSuccessPopupDisplayed(), "Không hiện Popup cập nhật thành công!");
-//
-//        // (Tuỳ chọn) Nếu Web của bạn yêu cầu bấm OK trên Popup để load lại, bạn thêm dòng code thao tác ở đây.
-//        // Sau khi reload, check tên mới hiển thị trên Profile
-//        Assert.assertEquals(profilePage.getDisplayedName(), updatedName, "Tên hiển thị chưa cập nhật!");
-//    }
+    // ==========================================
+    // 3. LUỒNG LOGIC: TRÙNG EMAIL & CẬP NHẬT THÀNH CÔNG
+    // ==========================================
+    @Test(priority = 6, description = "Xác minh báo lỗi khi nhập Email đã liên kết với tài khoản khác")
+    public void verifyEmailAlreadyExists() {
+        editProfileModal.fillForm("New Name", dynamicPass, existingSystemEmail, dynamicPhone);
+        editProfileModal.submit();
+
+        Assert.assertTrue(profilePage.isEmailAlreadyExistPopupDisplayed(), "Không hiện Popup email đã tồn tại!");
+        editProfileModal.waitForInvisible(By.className("swal-overlay"), 5);
+    }
+
+    @Test(priority = 7, description = "Cập nhật thành công với dữ liệu mới và hợp lệ")
+    public void verifyUpdateProfileSuccessfully() {
+        // Chuẩn hóa chuỗi (bỏ khoảng trắng thừa cuối câu) để tránh lỗi lệch data khi Assert tên hiển thị
+        String updatedName = "Trúc Anh";
+        String updatedEmail = "updated_" + System.currentTimeMillis() + "@test.com";
+
+        // Thực hiện điền và gửi form
+        editProfileModal.fillForm(updatedName, "Abcd123@", updatedEmail, "0931887209");
+        editProfileModal.submit();
+
+        // Kiểm tra hiển thị Popup SweetAlert thành công (Hàm đã được định nghĩa ở ProfilePage)
+        Assert.assertTrue(profilePage.isSuccessPopupDisplayed(), "Không hiện Popup cập nhật thành công!");
+
+        // (Tuỳ chọn thêm nếu cần) Nếu trang web bắt buộc bấm "OK" trên popup thành công để reload/đóng, bạn thêm dòng click tại đây:
+        // profilePage.clickOkOnSuccessPopup();
+
+        // Kiểm tra tên mới đã được hiển thị cập nhật chính xác trên trang Profile
+        Assert.assertEquals(profilePage.getDisplayedName(), updatedName, "Tên hiển thị chưa cập nhật chính xác!");
+    }
 }
