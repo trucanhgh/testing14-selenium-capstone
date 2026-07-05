@@ -14,6 +14,7 @@ public class CourseTabSection extends CommonPage {
 	private final By byCourseList = By.xpath("//section[@class='myCourseInfo']");
 	private final By byEmptyState = By.xpath("//*[contains(normalize-space(),'Không có') or contains(normalize-space(),'No course')]");
 	private final By byCourseCard = By.xpath("//div[@class='myCourseItem']");
+	private final By byFirstCourseName = By.xpath("//div[@class='myCourseItem']//h6[1]");
 
 	public CourseTabSection(WebDriver driver) {
 		super(driver);
@@ -54,7 +55,7 @@ public class CourseTabSection extends CommonPage {
 	}
 
 	public String getCourseTitleByIndex(int courseIndex) {
-		By titleLocator = By.xpath(String.format("(//div[@class='myCourseItem'])[%d]//div[@class='courseTitle']", courseIndex));
+		By titleLocator = By.xpath(String.format("(//div[@class='myCourseItem']//h6)[%d]", courseIndex));
 		return getText(titleLocator);
 	}
 
@@ -64,13 +65,18 @@ public class CourseTabSection extends CommonPage {
 	}
 
 	public void cancelCourseByName(String courseName) {
-		By byCancelBtn = By.xpath(String.format(
-				"//div[@class='myCourseItem'][.//div[@class='courseTitle' and contains(text(), '%s')]]//button[text()='Hủy khóa học']",
-				courseName));
+		// Sửa lại XPath: Sửa lỗi cú pháp thừa dấu ']' và tối ưu việc tìm theo tên khóa học
+		String xpathCancelBtn = String.format(
+				"//div[contains(@class, 'myCourseItem') and .//h6[contains(normalize-space(), '%s')]]//button[contains(@class, 'btnGlobal')]",
+				courseName
+		);
+		By byCancelBtn = By.xpath(xpathCancelBtn);
+
+		// Thực hiện cuộn và click vào nút hủy
 		scrollAndClick(byCancelBtn);
 
 		// Tự động kiểm tra và xử lý SweetAlert popup nếu xuất hiện
-		By byConfirmSwalBtn = By.xpath("//button[contains(@class, 'swal-button--confirm') or text()='OK']");
+		By byConfirmSwalBtn = By.xpath("//button[contains(@class, 'swal-button--confirm') or text()='OK' or contains(text(), 'Xác nhận')]");
 		if (isDisplayed(byConfirmSwalBtn, TimeOutConstant.TIME_OUT_MEDIUM)) {
 			click(byConfirmSwalBtn);
 		}

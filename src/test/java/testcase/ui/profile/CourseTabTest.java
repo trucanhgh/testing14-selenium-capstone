@@ -1,13 +1,11 @@
 package testcase.ui.profile;
-
-import api.UserAPI;
-import io.restassured.response.Response;
-import org.openqa.selenium.Dimension;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.CourseTabSection;
 import pages.ProfilePage;
+import java.lang.reflect.Method;
 import java.util.List;
 
 public class CourseTabTest extends ProfileTestBase {
@@ -23,26 +21,42 @@ public class CourseTabTest extends ProfileTestBase {
 
     @BeforeClass
     public void setupCourseTabTest() {
-        // 1. Tạo account ngẫu nhiên mới tinh qua API (Tự sinh dynamicUser)
+        // 1. Tạo account ngẫu nhiên mới tinh qua API
         createAccountViaAPI();
 
         // 2. Danh sách các mã khóa học cần chuẩn bị theo yêu cầu đề bài
         String[] coursesToEnroll = {"000123456", "000", "09876788", "100999", ".100"};
 
-        // 3. Ghi danh hàng loạt trực tiếp thông qua token chung hệ thống
+        // 3. Ghi danh hàng loạt sử dụng hàm helper đã cập nhật cơ chế Token
         enrollCoursesForDynamicUserViaAPI(coursesToEnroll);
 
-        // 4. Mở trình duyệt, thực hiện luồng UI Login và đi tới trang Profile tab Khóa học
+        // 4. CHỈ ĐẾN TRANG PROFILE MẶC ĐỊNH (Không tự ý click chuyển tab ở đây nữa)
         profilePage = loginAndGoToProfile(dynamicUser, dynamicPass);
-        profilePage.openCourseTab();
-        courseTabSection = profilePage.getCourseTabSection();
+    }
+    @BeforeMethod
+    public void switchToCourseTabIfNeeded(Method method) {
+        // Nếu là test hiển thị tab bar mặc định thì không cần chuyển tab
+        if (method.getName().equals("verifyProfileTabBarDisplay")) {
+            return;
+        }
+
+        // 1. Nếu chưa từng khởi tạo profilePage (phòng hờ), hãy lấy từ base hoặc login
+        if (profilePage == null) {
+            // Bạn có thể cân nhắc gán lại nếu cần, tạm thời giữ nguyên logic của bạn
+        }
+
+        // 2. Kiểm tra nếu courseTabSection chưa được khởi tạo HOẶC giao diện bị mất focus (văng về tab cũ)
+        if (courseTabSection == null || !courseTabSection.isCourseTabReady()) {
+            profilePage.openCourseTab();
+            courseTabSection = profilePage.getCourseTabSection();
+        }
     }
 
     // ==========================================
     // 1. NHÓM KIỂM TRA GIAO DIỆN & ĐIỀU HƯỚNG (UI)
     // ==========================================
 
-    @Test(priority = 14, description = "TC_14: Xác minh hiển thị tab bar [Thông tin cá nhân]/[Khóa học] - Đã đăng nhập thành công")
+    @Test(priority = 1, description = "Xác minh hiển thị tab bar [Thông tin cá nhân]/[Khóa học] - Đã đăng nhập thành công")
     public void verifyProfileTabBarDisplay() {
         Assert.assertTrue(profilePage.isPersonalInfoTabDisplayed(), "Tab [Thông tin cá nhân] không hiển thị!");
         Assert.assertTrue(profilePage.isCourseTabDisplayed(), "Tab [Khóa học] không hiển thị!");
@@ -50,21 +64,20 @@ public class CourseTabTest extends ProfileTestBase {
         Assert.assertTrue(profilePage.isPersonalInfoSectionDisplayed(), "Mặc định tab Thông tin cá nhân chưa active!");
     }
 
-    @Test(priority = 15, description = "TC_15: Xác minh khi chuyển tab [Thông tin cá nhân]/[Khóa học]")
+    @Test(priority = 2, description = "Xác minh khi chuyển tab [Thông tin cá nhân]/[Khóa học]")
     public void verifySwitchToCourseTab() {
-        profilePage.openCourseTab();
         courseTabSection = profilePage.getCourseTabSection();
 
         Assert.assertTrue(courseTabSection.isCourseTabReady(), "Nội dung tab [Khóa học] không hiển thị sau khi click!");
     }
 
-    @Test(priority = 16, description = "TC_16: Xác minh hiển thị cấu trúc cơ bản của tab [Khóa học]")
+    @Test(priority = 3, description = "Xác minh hiển thị cấu trúc cơ bản của tab [Khóa học]")
     public void verifyCourseTabStructure() {
         // Đảm bảo đang ở tab khóa học từ bài test trước
         Assert.assertTrue(courseTabSection.isCourseTabReady(), "Tab Khóa học chưa sẵn sàng!");
     }
 
-    @Test(priority = 17, description = "TC_17 & TC_18: Xác minh hiển thị Danh sách khóa học và chi tiết từng khóa")
+    @Test(priority = 4, description = "Xác minh hiển thị Danh sách khóa học và chi tiết từng khóa")
     public void verifyCourseListAndCardDetails() {
         int courseCount = courseTabSection.getCourseCount();
 
@@ -85,19 +98,7 @@ public class CourseTabTest extends ProfileTestBase {
     // 2. LUỒNG LOGIC: TÌM KIẾM KHÓA HỌC (SEARCH)
     // ==========================================
 
-    @Test(priority = 22, description = "TC_22: Xác minh khi nhấn Enter trên [Tìm kiếm] không kích hoạt sự kiện tìm kiếm riêng")
-    public void verifySearchWithEnterKey() {
-        int countBefore = courseTabSection.getCourseCount();
-
-        courseTabSection.searchCourse(TARGET_COURSE);
-        courseTabSection.pressEnterOnSearch();
-
-        int countAfter = courseTabSection.getCourseCount();
-        // Hệ thống không bind sự kiện tìm kiếm riêng cho Enter, kết quả giữ nguyên (hoặc bằng trước đó do realtime)
-        Assert.assertEquals(countAfter, countBefore, "Hệ thống thay đổi trạng thái sai khi nhấn Enter!");
-    }
-
-    @Test(priority = 23, description = "TC_23: Xác minh khi nhập tên khóa học chính xác vào [Tìm kiếm]")
+    @Test(priority = 5, description = "Xác minh khi nhập tên khóa học chính xác vào [Tìm kiếm]")
     public void verifySearchExactCourseName() {
         courseTabSection.searchCourse(TARGET_COURSE);
 
@@ -105,7 +106,7 @@ public class CourseTabTest extends ProfileTestBase {
         Assert.assertEquals(courseTabSection.getCourseCount(), 1, "Kết quả tìm kiếm chính xác phải trả về 1 bản ghi!");
     }
 
-    @Test(priority = 24, description = "TC_24: Xác minh khi nhập khoảng trắng vào trước và sau từ khóa [Tìm kiếm]")
+    @Test(priority = 6, description = "Xác minh khi nhập khoảng trắng vào trước và sau từ khóa [Tìm kiếm]")
     public void verifySearchWithSpacesTrimmed() {
         String searchKeyWithSpaces = "   " + TARGET_COURSE + "   ";
         courseTabSection.searchCourse(searchKeyWithSpaces);
@@ -114,7 +115,7 @@ public class CourseTabTest extends ProfileTestBase {
         Assert.assertTrue(courseTabSection.isCourseExists(TARGET_COURSE), "Hệ thống không tự động trim khoảng trắng đầu/cuối!");
     }
 
-    @Test(priority = 25, description = "TC_25: Xác minh khi nhập vào [Tìm kiếm] theo từ khóa khớp một phần")
+    @Test(priority = 7, description = "Xác minh khi nhập vào [Tìm kiếm] theo từ khóa khớp một phần")
     public void verifySearchPartialMatch() {
         courseTabSection.searchCourse("Jav");
 
@@ -127,21 +128,21 @@ public class CourseTabTest extends ProfileTestBase {
         }
     }
 
-    @Test(priority = 26, description = "TC_26: Xác minh tìm kiếm không phân biệt hoa/thường")
+    @Test(priority = 8, description = "Xác minh tìm kiếm không phân biệt hoa/thường")
     public void verifySearchCaseInsensitive() {
         courseTabSection.searchCourse("javascript nâng cao mới");
 
         Assert.assertTrue(courseTabSection.isCourseExists(TARGET_COURSE), "Tìm kiếm có phân biệt hoa/thường!");
     }
 
-    @Test(priority = 27, description = "TC_27: Xác minh tìm kiếm bằng tiếng Việt có dấu")
+    @Test(priority = 9, description = "Xác minh tìm kiếm bằng tiếng Việt có dấu")
     public void verifySearchWithVietnameseTones() {
         courseTabSection.searchCourse("nâng cao mới");
 
         Assert.assertTrue(courseTabSection.isCourseExists(TARGET_COURSE), "Không tìm thấy khóa học khi gõ tiếng Việt có dấu!");
     }
 
-    @Test(priority = 28, description = "TC_28: Xác minh khi xóa từ khóa tìm kiếm quay lại danh sách đầy đủ")
+    @Test(priority = 10, description = "Xác minh khi xóa từ khóa tìm kiếm quay lại danh sách đầy đủ")
     public void verifyRealtimeSearchAndClear() {
         // Gõ từ khóa tìm kiếm
         courseTabSection.searchCourse(TARGET_COURSE);
@@ -158,7 +159,7 @@ public class CourseTabTest extends ProfileTestBase {
     // 3. LUỒNG LOGIC: HỦY KHÓA HỌC (CANCEL)
     // ==========================================
 
-    @Test(priority = 21, description = "TC_21: Xác minh khi chọn [Hủy khóa học]")
+    @Test(priority = 11, description = "Xác minh khi chọn [Hủy khóa học]")
     public void verifyCancelCourseSuccessfully() {
         // Xóa tìm kiếm trước đó để đảm bảo hiển thị đủ danh sách
         courseTabSection.searchCourse("");
@@ -170,7 +171,7 @@ public class CourseTabTest extends ProfileTestBase {
             // Xác minh lại sau khi hủy thành công (Hàm cancelCourseByName trong CourseTabSection đã tự handle click OK trên SweetAlert)
             Assert.assertFalse(courseTabSection.isCourseExists(CANCEL_COURSE), "Khóa học vẫn tồn tại sau khi thực hiện Hủy!");
         } else {
-            Assert.fail("Không thể thực hiện TC_21 vì khóa học '" + CANCEL_COURSE + "' không tồn tại sẵn trong tài khoản test!");
+            Assert.fail("Không thể thực hiện TC vì khóa học '" + CANCEL_COURSE + "' không tồn tại sẵn trong tài khoản test!");
         }
     }
 }

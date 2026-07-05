@@ -9,15 +9,14 @@ public class ProfilePage extends CommonPage {
 	// ================= LOCATORS =================
 	private final By byProfileHeader = By.xpath("//div[@class='titleCourse']");
 	private final By byProfileTabBar = By.xpath("//div[@class='tab']");
-	private final By byPersonalInfoTab = By.xpath("//button[@class='tabLink active']");
-	private final By byCourseTab = By.xpath("//button[@class='tabLink']");
+	private final By byPersonalInfoTab = By.xpath("//button[contains(@class, 'tabLink') and contains(normalize-space(), 'Thông tin cá nhân')]");
+	private final By byCourseTab = By.xpath("//button[contains(@class, 'tabLink') and contains(normalize-space(), 'Khóa học')]");
 	private final By byLeftBar = By.xpath("//div[@class='infoLeft']");
 	private final By byPersonalInfoSection = By.xpath("//section[@class='userInfo']");
 	private final By bySkillsSection = By.xpath("//div[@class='userInfoBot']");
 	private final By byEditButton = By.xpath("//button[@data-toggle='modal']");
 	private final By byProfileAvatar = By.xpath("//div[@class='infoLeft']//img");
 
-	// Locator dùng để lấy Data đối chiếu (Lưu ý: Bạn hãy check lại XPath này với DOM thực tế của dự án nhé)
 	private final By byDisplayName = By.xpath("//section[@class='userInfo']//h3");
 	private final By byDisplayEmail = By.xpath("//p[contains(text(),'Email')]/span");
 	private final By byDisplayPhone = By.xpath("//p[contains(text(),'Số điện thoại')]/span");
