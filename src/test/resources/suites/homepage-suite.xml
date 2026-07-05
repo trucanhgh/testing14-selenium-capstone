@@ -4,20 +4,20 @@
     <test verbose="2" preserve-order="true"
           name="Home Page Tests">
         <classes>
-            <class name="testcase.ui.homePage.HomePageBannerTest">
+            <class name="testcase.ui.homepage.HomePageBannerTest">
                 <methods>
                     <include name="verifyBannerDisplaysCorrectly"/>
                     <include name="verifyStartButtonNavigation"/>
                 </methods>
             </class>
-            <class name="testcase.ui.homePage.HomePageIntroductionTest">
+            <class name="testcase.ui.homepage.HomePageIntroductionTest">
                 <methods>
                     <include name="verifyCourseSectionDisplayedCorrectly"/>
                     <include name="verifyCourseCardHoverEffect"/>
                     <include name="verifyCourseCardUI"/>
                 </methods>
             </class>
-            <class name="testcase.ui.homePage.HomePageCourseTest">
+            <class name="testcase.ui.homepage.HomePageCourseTest">
                 <methods>
                     <include name="verifyCourseTitles"/>
                     <include name="verifyCourseCardInformation"/>
@@ -25,20 +25,20 @@
                     <include name="verifyClickCourseCard"/>
                 </methods>
             </class>
-            <class name="testcase.ui.homePage.HomePageStatisticTest">
+            <class name="testcase.ui.homepage.HomePageStatisticTest">
                 <methods><include name="verifyStatisticIcons"/>
                     <include name="verifyStatisticTitles"/>
                     <include name="verifyStatisticNumbers"/>
                 </methods>
             </class>
-            <class name="testcase.ui.homePage.HomePageInstructorTest">
+            <class name="testcase.ui.homepage.HomePageInstructorTest">
                 <methods>
                     <include name="verifyInstructorSectionDisplayedCorrectly"/>
                     <include name="verifyInstructorHoverEffect"/>
                     <include name="verifyClickInstructorCard"/>
                 </methods>
             </class>
-            <class name="testcase.ui.homePage.HomePageTestimonialTest">
+            <class name="testcase.ui.homepage.HomePageTestimonialTest">
                 <methods>
                     <include name="verifyStudentReviewDisplayedCorrectly"/>
                 </methods>

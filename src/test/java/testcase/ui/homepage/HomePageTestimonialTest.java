@@ -1,4 +1,4 @@
-package testcase.ui.homePage;
+package testcase.ui.homepage;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

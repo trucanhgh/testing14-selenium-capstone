@@ -129,11 +129,18 @@ public class BasePage {
     }
 
     public void clearAndType(By locator, String value, long timeoutInSec) {
-        WebElement element = waitForVisible(locator, timeoutInSec);
+        // Thay đổi từ waitForVisible thành waitForClickable để đảm bảo phần tử sẵn sàng nhận click
+        WebElement element = waitForClickable(locator, timeoutInSec);
         LOG.info("Clear and type into locator: {}", locator);
 
         // 1. Click bôi đen toàn bộ dữ liệu cũ (Giả lập hành vi người dùng)
-        element.click();
+        try {
+            element.click();
+        } catch (org.openqa.selenium.ElementClickInterceptedException e) {
+            LOG.warn("Element bị che bởi overlay, đang cố gắng click bằng JavaScript Bypass...");
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+        }
+
         element.sendKeys(Keys.chord(Keys.CONTROL, "a"));
         element.sendKeys(Keys.BACK_SPACE);
 
@@ -258,6 +265,7 @@ public class BasePage {
     public String getPageTitle() {
         return driver.getTitle();
     }
+
 
     // Legacy aliases: keep temporary compatibility for old page objects.
     @Deprecated

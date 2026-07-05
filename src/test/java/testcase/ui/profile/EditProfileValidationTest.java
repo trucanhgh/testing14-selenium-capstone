@@ -1,6 +1,7 @@
 package testcase.ui.profile;
 
 import api.UserAPI;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -79,15 +80,16 @@ public class EditProfileValidationTest extends ProfileTestBase {
     // ==========================================
     // 3. LUỒNG LOGIC: TRÙNG EMAIL & CẬP NHẬT THÀNH CÔNG
     // ==========================================
-    @Test(description = "Xác minh báo lỗi khi nhập Email đã liên kết với tài khoản khác")
+    @Test(priority = 6, description = "Xác minh báo lỗi khi nhập Email đã liên kết với tài khoản khác")
     public void verifyEmailAlreadyExists() {
         editProfileModal.fillForm("New Name", dynamicPass, existingSystemEmail, dynamicPhone);
         editProfileModal.submit();
 
         Assert.assertTrue(profilePage.isEmailAlreadyExistPopupDisplayed(), "Không hiện Popup email đã tồn tại!");
+        editProfileModal.waitForInvisible(By.className("swal-overlay"), 5);
     }
 
-    @Test(description = "Cập nhật thành công với dữ liệu mới và hợp lệ")
+    @Test(priority = 7, description = "Cập nhật thành công với dữ liệu mới và hợp lệ")
     public void verifyUpdateProfileSuccessfully() {
         // Chuẩn hóa chuỗi (bỏ khoảng trắng thừa cuối câu) để tránh lỗi lệch data khi Assert tên hiển thị
         String updatedName = "Trúc Anh";
