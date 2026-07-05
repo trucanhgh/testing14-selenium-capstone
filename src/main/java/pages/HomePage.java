@@ -6,8 +6,9 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-
 import java.util.List;
+
+
 
 public class HomePage extends CommonPage {
 
@@ -95,27 +96,27 @@ public class HomePage extends CommonPage {
     public boolean isBannerTextDisplayed() {
         return isBannerTextDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isBannerTextDisplayed(long timeoutInSec) {
-        return isElementDisplayed(byBannerText, timeoutInSec);}
+        return isDisplayed(byBannerText, timeoutInSec);}
 
     public boolean isVlearningTextDisplayed() {
         return isVlearningTextDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isVlearningTextDisplayed(long timeoutInSec) {
-        return isElementDisplayed(byVlearningText, timeoutInSec);}
+        return isDisplayed(byVlearningText, timeoutInSec);}
 
     public boolean isStartButtonDisplayed() {
         return isStartButtonDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isStartButtonDisplayed(long timeoutInSec) {
-        return isElementDisplayed(byStartBtn, timeoutInSec);}
+        return isDisplayed(byStartBtn, timeoutInSec);}
 
     public void clickStartButton() {
-        clickStartButton(TimeOutConstant.TIME_OUT_DEFAULT);}
+        clickStartButton(TimeOutConstant.TIME_OUT_DEFAULT); }
     public void clickStartButton(long timeoutInSec) {
-        clickBtn(byStartBtn, timeoutInSec);}
+        clickBtn(byStartBtn, timeoutInSec); }
 
     public boolean isBannerImageDisplayed() {
         return isBannerImageDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isBannerImageDisplayed(long timeoutInSec) {
-        return isElementDisplayed(byBannerImg, timeoutInSec);}
+        return isDisplayed(byBannerImg, timeoutInSec);}
 
     public void resizeBrowser(int width, int height) {
         driver.manage().window().setSize(new Dimension(width, height));}
@@ -126,13 +127,13 @@ public class HomePage extends CommonPage {
     public boolean isIntroductionSectionDisplayed() {
         return isIntroductionSectionDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isIntroductionSectionDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byIntroductionSection, timeOutInSec);}
+        return isDisplayed(byIntroductionSection, timeOutInSec);}
 
     public boolean isIntroductionBlockDisplayed(String blockName) {
         return isIntroductionBlockDisplayed(blockName, TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isIntroductionBlockDisplayed(String blockName, long timeOutInSec) {
         By locator = By.xpath("//div[contains(@class,'infoItemHome')]" + "[.//h3[normalize-space()='" + blockName + "']]");
-        return isElementDisplayed(locator, timeOutInSec);}
+        return isDisplayed(locator, timeOutInSec);}
 
     public void hoverIntroductionBlock(String blockName) {
         By locator = By.xpath("//div[contains(@class,'infoItemHome')]" + "[.//h3[normalize-space()='" + blockName + "']]");
@@ -154,17 +155,17 @@ public class HomePage extends CommonPage {
     public boolean isDescriptionDisplayed() {
         return isDescriptionDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isDescriptionDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byDescription, timeOutInSec);}
+        return isDisplayed(byDescription, timeOutInSec);}
 
     public boolean isListItemDisplayed() {
         return isListItemDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isListItemDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byListItem, timeOutInSec);}
+        return isDisplayed(byListItem, timeOutInSec);}
 
     public boolean isFoItemDisplayed(String itemText) {
         return isFoItemDisplayed(itemText, TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isFoItemDisplayed(String itemText, long timeOutInSec) {
-        return isElementDisplayed(byFoItem, timeOutInSec);}
+        return isDisplayed(byFoItem, timeOutInSec);}
 
 
     // ================= DANH SÁCH KHÓA HỌC ==================
@@ -172,57 +173,57 @@ public class HomePage extends CommonPage {
     public boolean isPopularCourseDisplayed() {
         return isPopularCourseDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isPopularCourseDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byPopularCourse, timeOutInSec);}
+        return isDisplayed(byPopularCourse, timeOutInSec);}
 
     public boolean isCategoryTitleDisplayed() {
         return isCategoryTitleDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isCategoryTitleDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byCategoryTitle, timeOutInSec);}
+        return isDisplayed(byCategoryTitle, timeOutInSec);}
 
     public boolean isFrontEndReactCourseDisplayed() {
         return isFrontEndReactCourseDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isFrontEndReactCourseDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byFrontEndReactCourse, timeOutInSec);}
+        return isDisplayed(byFrontEndReactCourse, timeOutInSec);}
 
     public boolean isCourseCardDisplayed() {
         return isCourseCardDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isCourseCardDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byCourseCard, timeOutInSec);}
+        return isDisplayed(byCourseCard, timeOutInSec);}
 
     public boolean isCardSaleDisplayed() {
         return isCardSaleDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isCardSaleDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byCardSale, timeOutInSec);}
+        return isDisplayed(byCardSale, timeOutInSec);}
 
     public boolean isStickerDisplayed() {
         return isStickerDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isStickerDisplayed(long timeOutInSec) {
-        return isElementDisplayed(bySticker, timeOutInSec);}
+        return isDisplayed(bySticker, timeOutInSec);}
 
     public boolean isCardBodyDisplayed() {
         return isCardBodyDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isCardBodyDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byCardBody, timeOutInSec);}
+        return isDisplayed(byCardBody, timeOutInSec);}
 
     public boolean isTeacherNameDisplayed() {
         return isTeacherNameDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isTeacherNameDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byTeacherName, timeOutInSec);}
+        return isDisplayed(byTeacherName, timeOutInSec);}
 
     public boolean isTitleMakerDisplayed() {
         return isTitleMakerDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isTitleMakerDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byTitleMaker, timeOutInSec);}
+        return isDisplayed(byTitleMaker, timeOutInSec);}
 
     public boolean isCourseImageDisplayed() {
         return isCourseImageDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isCourseImageDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byCourseImage, timeOutInSec);}
+        return isDisplayed(byCourseImage, timeOutInSec);}
 
     public boolean isTeacherAvatarDisplayed() {
         return isTeacherAvatarDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isTeacherAvatarDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byTeacherAvatar, timeOutInSec);}
+        return isDisplayed(byTeacherAvatar, timeOutInSec);}
 
     public void clickCourseCard() {
         clickCourseCard(TimeOutConstant.TIME_OUT_DEFAULT);}
@@ -232,7 +233,7 @@ public class HomePage extends CommonPage {
     public boolean isCourseDetailDisplayed() {
         return isCourseDetailDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isCourseDetailDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byCourseDetail, timeOutInSec);}
+        return isDisplayed(byCourseDetail, timeOutInSec);}
 
     public boolean isPricesDisplayed() {
 
@@ -249,37 +250,37 @@ public class HomePage extends CommonPage {
     public boolean isHoverCardDisplayed() {
         return isHoverCardDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isHoverCardDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byHoverCard, timeOutInSec);}
+        return isDisplayed(byHoverCard, timeOutInSec);}
 
     public boolean isSubCardHeaderDisplayed() {
         return isSubCardHeaderDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isSubCardHeaderDisplayed(long timeOutInSec) {
-        return isElementDisplayed(bySubCardHeader, timeOutInSec);}
+        return isDisplayed(bySubCardHeader, timeOutInSec);}
 
     public boolean isCourseTitleDisplayed() {
         return isCourseTitleDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isCourseTitleDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byCourseTitle, timeOutInSec);}
+        return isDisplayed(byCourseTitle, timeOutInSec);}
 
     public boolean isCourseDescriptionDisplayed() {
         return isCourseDescriptionDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isCourseDescriptionDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byCourseDescription, timeOutInSec);}
+        return isDisplayed(byCourseDescription, timeOutInSec);}
 
     public boolean isCardIconDisplayed() {
         return isCardIconDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isCardIconDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byCardIcon, timeOutInSec);}
+        return isDisplayed(byCardIcon, timeOutInSec);}
 
     public boolean isViewDetailButtonDisplayed() {
         return isViewDetailButtonDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isViewDetailButtonDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byViewDetailBtn, timeOutInSec);}
+        return isDisplayed(byViewDetailBtn, timeOutInSec);}
 
     public boolean isViewDetailLinkDisplayed() {
         return isViewDetailLinkDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isViewDetailLinkDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byViewDetailLink, timeOutInSec);}
+        return isDisplayed(byViewDetailLink, timeOutInSec);}
 
     public void hoverCourseCard() {
         Actions actions = new Actions(driver);}
@@ -290,75 +291,75 @@ public class HomePage extends CommonPage {
     public boolean isBoxNumberContainerDisplayed() {
         return isBoxNumberContainerDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isBoxNumberContainerDisplayed(long timeoutInSec) {
-        return isElementDisplayed(byBoxNumberContainer, timeoutInSec);}
+        return isDisplayed(byBoxNumberContainer, timeoutInSec);}
 
     public boolean isBoxNumberDisplayed() {
         return isBoxNumberDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isBoxNumberDisplayed(long timeoutInSec) {
-        return isElementDisplayed(byBoxNumber, timeoutInSec);}
+        return isDisplayed(byBoxNumber, timeoutInSec);}
 
     public boolean isStudentIconDisplayed() {
         return isStudentIconDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isStudentIconDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byStudentIcon, timeOutInSec);}
+        return isDisplayed(byStudentIcon, timeOutInSec);}
 
     public boolean isTimetableIconDisplayed() {
         return isTimetableIconDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isTimetableIconDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byTimetableIcon, timeOutInSec);}
+        return isDisplayed(byTimetableIcon, timeOutInSec);}
 
     public boolean isHourIconDisplayed() {
         return isHourIconDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isHourIconDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byHourIcon, timeOutInSec);}
+        return isDisplayed(byHourIcon, timeOutInSec);}
 
     public boolean isTeacherIconDisplayed() {
         return isTeacherIconDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isTeacherIconDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byTeacherIcon, timeOutInSec);}
+        return isDisplayed(byTeacherIcon, timeOutInSec);}
 
     public boolean isNumberDisplayed() {
         return isNumberDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isNumberDisplayed(long timeoutInSec) {
-        return isElementDisplayed(byNumber, timeoutInSec);}
+        return isDisplayed(byNumber, timeoutInSec);}
 
     public boolean isTitleSLDisplayed(String title) {
         return isTitleSLDisplayed(title, TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isTitleSLDisplayed(String title, long timeOutInSec) {
         By locator = By.xpath("//p[contains(@class,'textNumberTitle')][normalize-space()='" + title + "']");
-        return isElementDisplayed(locator, timeOutInSec);}
+        return isDisplayed(locator, timeOutInSec);}
 
     public boolean isStudentNumberDisplayed() {
         return isStudentNumberDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isStudentNumberDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byStudentNumber, timeOutInSec);}
+        return isDisplayed(byStudentNumber, timeOutInSec);}
 
     public boolean isCourseNumberDisplayed() {
         return isCourseNumberDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isCourseNumberDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byCourseNumber, timeOutInSec);}
+        return isDisplayed(byCourseNumber, timeOutInSec);}
 
     public boolean isHourNumberDisplayed() {
         return isHourNumberDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isHourNumberDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byHourNumber, timeOutInSec);}
+        return isDisplayed(byHourNumber, timeOutInSec);}
 
     public boolean isTeacherNumberDisplayed() {
         return isTeacherNumberDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isTeacherNumberDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byTeacherNumber, timeOutInSec);}
+        return isDisplayed(byTeacherNumber, timeOutInSec);}
 
 // ================= GIẢNG VIÊN HÀNG ĐẦU =================
 
     public boolean isInstructorContainerDisplayed() {
         return isInstructorContainerDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isInstructorContainerDisplayed(long timeoutInSec) {
-        return isElementDisplayed(byInstructorContainer, timeoutInSec);}
+        return isDisplayed(byInstructorContainer, timeoutInSec);}
 
     public boolean isTopInstructorTitleDisplayed() {
         return isTopInstructorTitleDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isTopInstructorTitleDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byTopInstructorTitle, timeOutInSec);}
+        return isDisplayed(byTopInstructorTitle, timeOutInSec);}
 
     public void hoverInstructorCard() {
         WebElement element = driver.findElement(byHoverInstructorCard);
@@ -371,42 +372,21 @@ public class HomePage extends CommonPage {
         return isInstructorNameDisplayed(instructorName, TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isInstructorNameDisplayed(String instructorName, long timeOutInSec) {
         By locator = By.xpath("//div[contains(@class,'instrutorContent')]//h6[normalize-space()='" + instructorName + "']");
-        return isElementDisplayed(locator, timeOutInSec);}
+        return isDisplayed(locator, timeOutInSec);}
 
     public boolean isInstructorImageDisplayed(String instructorName) {
         return isInstructorImageDisplayed(instructorName, TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isInstructorImageDisplayed(String instructorName, long timeOutInSec) {
         By locator = By.xpath("//div[contains(@class,'instrutorContent')]" + "[.//h6[normalize-space()='" + instructorName + "']]//img");
-        return isElementDisplayed(locator, timeOutInSec);}
+        return isDisplayed(locator, timeOutInSec);}
 
     public String getExpectedInstructorRole(String instructorName) {
+        // Tìm đến đúng element chứa vai trò của giảng viên dựa theo tên
+        By locator = By.xpath("//div[contains(@class,'instrutorContent')][.//h6[normalize-space()='" + instructorName + "']]//div[contains(@class,'textReviewRole')]");
 
-        switch (instructorName) {
-            case "IcarDi MenBor":
-                return "Chuyên gia ngôn ngữ";
-            case "Bladin Slaham":
-                return "Chuyên gia hệ thống máy tính";
-            case "Chris Andersen":
-                return "Chuyên gia lĩnh vực Full Skill";
-            case "VueLo Gadi":
-                return "Chuyên gia lĩnh vực Phân tích";
-            case "Hoàng Nam":
-                return "Chuyên gia lĩnh vực PHP";
-            case "David Ngô Savani":
-                return "Chuyên gia lĩnh vực Front End";
-            case "Big DadMoon":
-                return "Chuyên gia lĩnh vực lập trình";
-
-            default:
-                throw new IllegalArgumentException("Không tìm thấy giảng viên: " + instructorName);
-        }
-    }
-
-    public String getInstructorRole(String instructorName) {
-        By locator = By.xpath("//div[contains(@class,'instrutorContent')]" + "[.//h6[normalize-space()='" + instructorName + "']]" + "//div[contains(@class,'textReviewRole')]//p");
-        String role = getElementText(locator).trim();
-        LOG.info("Giảng viên: " + instructorName + " | Chức danh: " + role);
-        return role;
+        // Đợi element hiển thị, lấy text và cắt bỏ khoảng trắng thừa
+        waitForElementVisible(locator, constants.TimeOutConstant.TIME_OUT_DEFAULT);
+        return driver.findElement(locator).getText().trim();
     }
 
 
@@ -414,36 +394,36 @@ public class HomePage extends CommonPage {
         return isReviewStarDisplayed(instructorName, TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isReviewStarDisplayed(String instructorName, long timeOutInSec) {
         By locator = By.xpath("//div[contains(@class,'instrutorContent')]" + "[.//h6[normalize-space()='" + instructorName + "']]" + "//p[contains(@class,'reviewMentor')]//i");
-        return isElementDisplayed(locator, timeOutInSec);}
+        return isDisplayed(locator, timeOutInSec);}
 
     public boolean isRatingDisplayed(String instructorName) {
         return isRatingDisplayed(instructorName, TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isRatingDisplayed(String instructorName, long timeOutInSec) {
         By locator = By.xpath("//div[contains(@class,'instrutorContent')]" + "[.//h6[normalize-space()='" + instructorName + "']]" + "//p[contains(@class,'reviewMentor')]");
-        return isElementDisplayed(locator, timeOutInSec);}
+        return isDisplayed(locator, timeOutInSec);}
 
     public boolean isReviewCountDisplayed() {
         return isReviewCountDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);
     }
     public boolean isReviewCountDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byReviewCount, timeOutInSec);
+        return isDisplayed(byReviewCount, timeOutInSec);
     }
 
 
     public boolean isPrevButtonDisplayed() {
         return isPrevButtonDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isPrevButtonDisplayed(long timeoutInSec) {
-        return isElementDisplayed(byPrevButton, timeoutInSec);}
+        return isDisplayed(byPrevButton, timeoutInSec);}
 
     public boolean isNextButtonDisplayed() {
         return isNextButtonDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isNextButtonDisplayed(long timeoutInSec) {
-        return isElementDisplayed(byNextButton, timeoutInSec);}
+        return isDisplayed(byNextButton, timeoutInSec);}
 
     public boolean isInstructorDetailDisplayed() {
         return isInstructorDetailDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isInstructorDetailDisplayed(long timeoutInSec) {
-        return isElementDisplayed(byInstructorCard, timeoutInSec);}
+        return isDisplayed(byInstructorCard, timeoutInSec);}
 
     public void clickInstructorCardDisplayed() {
         clickInstructorCardDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
@@ -453,43 +433,43 @@ public class HomePage extends CommonPage {
     public boolean isInstructorhoverDisplayed() {
         return isInstructorhoverDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);}
     public boolean isInstructorhoverDisplayed(long timeOutInSec) {
-        return isElementDisplayed(byHoverInstructorCard, timeOutInSec);}
+        return isDisplayed(byHoverInstructorCard, timeOutInSec);}
 
 // ================= ĐÁNH GIÁ HỌC VIÊN =================
 
     public boolean isReviewSectionDisplayed() {
         return isReviewSectionDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);
     }
-    public boolean isReviewSectionDisplayed(long timeoutInSec) {return isElementDisplayed(byReviewSection, timeoutInSec); }
+    public boolean isReviewSectionDisplayed(long timeoutInSec) {return isDisplayed(byReviewSection, timeoutInSec); }
 
     public boolean isReviewStudentDisplayed() {
         return isReviewStudentDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);
     }
-    public boolean isReviewStudentDisplayed(long timeoutInSec) {return isElementDisplayed(byReviewStudent, timeoutInSec);}
+    public boolean isReviewStudentDisplayed(long timeoutInSec) {return isDisplayed(byReviewStudent, timeoutInSec);}
 
     public boolean isStudentImageDisplayed() {
         return isStudentImageDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);
     }
-    public boolean isStudentImageDisplayed(long timeoutInSec) {return isElementDisplayed(byStudentImage, timeoutInSec);}
+    public boolean isStudentImageDisplayed(long timeoutInSec) {return isDisplayed(byStudentImage, timeoutInSec);}
 
     public boolean isQuoteDisplayed() {
         return isQuoteDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);
     }
     public boolean isQuoteDisplayed(long timeoutInSec) {
-        return isElementDisplayed(byQuote, timeoutInSec);
+        return isDisplayed(byQuote, timeoutInSec);
     }
 
     public boolean isStudentNameDisplayed() {
         return isStudentNameDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);
     }
     public boolean isStudentNameDisplayed(long timeoutInSec) {
-        return isElementDisplayed(byStudentName, timeoutInSec);
+        return isDisplayed(byStudentName, timeoutInSec);
     }
 
     public boolean isStudentTitleDisplayed() {
         return isStudentTitleDisplayed(TimeOutConstant.TIME_OUT_DEFAULT);
     }
-    public boolean isStudentTitleDisplayed(long timeoutInSec) {return isElementDisplayed(byStudentTitle, timeoutInSec);
+    public boolean isStudentTitleDisplayed(long timeoutInSec) {return isDisplayed(byStudentTitle, timeoutInSec);
     }
 }
 

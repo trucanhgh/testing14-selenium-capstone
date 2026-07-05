@@ -41,22 +41,22 @@ public class HomePageBannerTest extends HomePageTestBase {
     @Test(description = "TC_06 - Verify Responsive Web")
     public void verifyResponsiveWeb() {
         int[][] screenSizes = {
-
-                {1920,1080},
-                {1366,768},
-                {1024,768},
-                {768,1024},
-                {390,844}};
+                {1920, 1080},
+                {1366, 768},
+                {1024, 768},
+                {768, 1024},
+                {390, 844}
+        };
 
         for (int[] size : screenSizes) {
-
-            homePage.resizeBrowser(1920, 1080);
-            Assert.assertTrue(homePage.isBannerTextDisplayed());
+            LOG.info("Testing responsive size: {}x{}", size[0], size[1]);
+            homePage.resizeBrowser(size[0], size[1]); // Truyền biến từ mảng vào đây
+            Assert.assertTrue(homePage.isBannerTextDisplayed(), "Banner text không hiển thị ở size: " + size[0] + "x" + size[1]);
             Assert.assertTrue(homePage.isVlearningTextDisplayed());
             Assert.assertTrue(homePage.isBannerImageDisplayed());
-
         }
     }
+
     @Test(description = "TC_07 - Verify GIF Image Display")
     public void verifyGifImageDisplayed() {
 
@@ -73,9 +73,8 @@ public class HomePageBannerTest extends HomePageTestBase {
         homePage.clickStartButton();
         LOG.info("TC_09: Kiểm tra điều hướng");
         ExtentReportManager.info("TC_09: Kiểm tra điều hướng");
-        // TODO
-        // Assert.assertTrue(homePage.isCoursePageDisplayed());
-        ExtentReportManager.fail("TC_09: Điều hướng thành công");
+        Assert.assertTrue(homePage.isCourseDetailDisplayed(), "TC_09 Thất bại: Bấm nút 'Bắt đầu nào' nhưng không điều hướng đến trang khóa học!");
+        ExtentReportManager.pass("TC_09: Điều hướng thành công sang trang khóa học.");
     }
 
 }
