@@ -6,76 +6,75 @@ import report.ExtentReportManager;
 
 public class HomePageBannerTest extends HomePageTestBase {
 //============ BANNER TESTS ============ TC_01 - TC_09
-    @Test(description = "TC_01 - Kiểm tra hiển thị textbox 'Chào mừng đến với môi trường Vlearning'")
+    @Test(description = "TC_01 - Xác minh hiển thị Texbox 'Chào mừng đến với môi trường Vlearning '")
     public void verifyBannerTextDisplayed() {
 
-        LOG.info("TC_01: Kiểm tra hiển thị textbox 'Chào mừng đến với môi trường Vlearning'");
-        ExtentReportManager.info("TC_01: Kiểm tra hiển thị textbox 'Chào mừng đến với môi trường Vlearning'");
+        LOG.info("TC_01: Xác minh hiển thị Texbox 'Chào mừng đến với môi trường Vlearning '");
+        ExtentReportManager.info("TC_01: Xác minh hiển thị Texbox 'Chào mừng đến với môi trường Vlearning '");
         Assert.assertTrue(homePage.isBannerTextDisplayed());
         ExtentReportManager.pass("TC_01: Banner text hiển thị đúng");
     }
 
-    @Test(description = "TC_02 - Kiểm tra hiển thị Text Animation 'Vlearning'")
+    @Test(description = "TC_02 - Xác minh hiển thị Text Animation 'Vlearning'")
     public void verifyVlearningTextDisplayed() {
-        LOG.info("TC_02: Kiểm tra hiển thị Text Animation 'Vlearning'");
-        ExtentReportManager.info("TC_02: Kiểm tra hiển thị Text Animation 'Vlearning'");
+        LOG.info("TC_02: Xác minh hiển thị Text Animation 'Vlearning'");
+        ExtentReportManager.info("TC_02: Xác minh hiển thị Text Animation 'Vlearning'");
         Assert.assertTrue(homePage.isVlearningTextDisplayed());
         ExtentReportManager.pass("TC_02: Text Animation hiển thị đúng");
     }
 
-    @Test(description = "TC_03 - Kiểm tra hiển thị hình ảnh minh họa")
+    @Test(description = "TC_03 - Xác minh hiển thị hình ảnh minh họa")
     public void verifyBannerImageDisplayed() {
-        LOG.info("TC_03: Kiểm tra hiển thị hình ảnh minh họa");
-        ExtentReportManager.info("TC_03: Kiểm tra hiển thị hình ảnh minh họa");
+        LOG.info("TC_03: Xác minh hiển thị hình ảnh minh họa");
+        ExtentReportManager.info("TC_03: Xác minh hiển thị hình ảnh minh họa");
         Assert.assertTrue(homePage.isBannerImageDisplayed());
         ExtentReportManager.pass("TC_03: Banner Image hiển thị đúng");
     }
 
-    @Test(description = "TC_04 - Kiểm tra hiển thị nút 'Bắt đầu nào'")
+    @Test(description = "TC_04 - Xác minh hiển thị Button 'Bắt đầu nào'")
     public void verifyStartButtonDisplayed() {
-        LOG.info("TC_04: Kiểm tra hiển thị nút 'Bắt đầu nào'");
-        ExtentReportManager.info("TC_04: Kiểm tra hiển thị nút 'Bắt đầu nào'");
+        LOG.info("TC_04: Xác minh hiển thị Button 'Bắt đầu nào'");
+        ExtentReportManager.info("TC_04: Xác minh hiển thị Button 'Bắt đầu nào'");
         Assert.assertTrue(homePage.isStartButtonDisplayed());
-        ExtentReportManager.pass("TC_04: Nút 'Bắt đầu nào' hiển thị đúng");
+        ExtentReportManager.pass("TC_04: Button 'Bắt đầu nào' hiển thị đúng");
     }
-    @Test(description = "TC_06 - Verify Responsive Web")
+    @Test(description = "TC_06 - Xác minh khi reponsive[ Web ] các kích cở khác nhau")
     public void verifyResponsiveWeb() {
         int[][] screenSizes = {
-
-                {1920,1080},
-                {1366,768},
-                {1024,768},
-                {768,1024},
-                {390,844}};
+                {1920, 1080},
+                {1366, 768},
+                {1024, 768},
+                {768, 1024},
+                {390, 844}
+        };
 
         for (int[] size : screenSizes) {
-
-            homePage.resizeBrowser(1920, 1080);
-            Assert.assertTrue(homePage.isBannerTextDisplayed());
+            LOG.info("Testing responsive size: {}x{}", size[0], size[1]);
+            homePage.resizeBrowser(size[0], size[1]); // Truyền biến từ mảng vào đây
+            Assert.assertTrue(homePage.isBannerTextDisplayed(), "Banner text không hiển thị ở size: " + size[0] + "x" + size[1]);
             Assert.assertTrue(homePage.isVlearningTextDisplayed());
             Assert.assertTrue(homePage.isBannerImageDisplayed());
-
         }
     }
-    @Test(description = "TC_07 - Verify GIF Image Display")
+
+    @Test(description = "TC_07 - Xác minh hiển thị Gif image Display")
     public void verifyGifImageDisplayed() {
 
-        LOG.info("TC_07: Kiểm tra GIF hiển thị");
-        ExtentReportManager.info("TC_07: Kiểm tra GIF hiển thị");
+        LOG.info("TC_07: Xác minh hiển thị Gif image Display");
+        ExtentReportManager.info("TC_07:  Xác minh hiển thị Gif image Display");
         Assert.assertTrue(homePage.isBannerImageDisplayed());
         ExtentReportManager.pass("TC_07: GIF image hiển thị đúng.");
     }
 
-    @Test(description = "TC_09 - Kiểm tra điều hướng khi click nút 'Bắt đầu nào'")
+    @Test(description = "TC_09 - Xác minh khi click Button 'Bắt đầu nào'")
     public void verifyStartButtonNavigation() {
         LOG.info("TC_09: Click nút 'Bắt đầu nào'");
         ExtentReportManager.info("TC_09: Click nút 'Bắt đầu nào'");
         homePage.clickStartButton();
         LOG.info("TC_09: Kiểm tra điều hướng");
         ExtentReportManager.info("TC_09: Kiểm tra điều hướng");
-        // TODO
-        // Assert.assertTrue(homePage.isCoursePageDisplayed());
-        ExtentReportManager.fail("TC_09: Điều hướng thành công");
+        Assert.assertTrue(homePage.isCourseDetailDisplayed(), "TC_09 Thất bại: Bấm nút 'Bắt đầu nào' nhưng không điều hướng đến trang khóa học!");
+        ExtentReportManager.pass("TC_09: Điều hướng thành công sang trang khóa học.");
     }
 
 }

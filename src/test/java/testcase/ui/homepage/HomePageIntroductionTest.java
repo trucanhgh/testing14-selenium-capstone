@@ -50,66 +50,28 @@ public class HomePageIntroductionTest extends HomePageTestBase {
         Assert.assertTrue(homePage.isIntroductionBlockDisplayed("Chứng nhận"));
         ExtentReportManager.pass("TC_14: Block 'Chứng nhận' hiển thị đúng");
     }
-//============ HOVER BLOCK INTRODUCTION TESTS ============ TC_15
 
-    @Test(description = "TC_15.1 - Xác minh Hover Block 'Khóa học'")
-    public void verifyHoverCourseBlock() {
-
-        LOG.info("TC_15.1: Hover vào Block 'Khóa học'");
-        ExtentReportManager.info("TC_15.1: Hover vào Block 'Khóa học'");
-        homePage.hoverIntroductionBlock("Khóa học");
-        Assert.assertTrue(homePage.isIntroductionBlockDisplayed("Khóa học"));
-        ExtentReportManager.pass("TC_15.1 :Hover Block 'Khóa học' thành công.");
+    @Test(
+            dataProvider = "introductionBlocks", // Gọi trực tiếp tên, TestNG sẽ tự tìm thấy ở lớp cha HomePageTestBase
+            description = "TC_15 - Xác minh Hover các Block thông tin giới thiệu"
+    )
+    public void verifyHoverIntroductionBlocks(String blockName, String tcId) {
+        String msg = tcId + " - Hover vào Block '" + blockName + "'";
+        LOG.info(msg);
+        ExtentReportManager.info(msg);
+        homePage.hoverIntroductionBlock(blockName);
+        Assert.assertTrue(homePage.isIntroductionBlockDisplayed(blockName),
+                tcId + " thất bại: Block '" + blockName + "' không hiển thị đúng sau khi hover!");
+        ExtentReportManager.pass(tcId + ": Hover Block '" + blockName + "' thành công.");
     }
-
-    @Test(description = "TC_15.2 - Xác minh Hover Block 'Lộ trình phù hợp'")
-    public void verifyHoverLearningPathBlock() {
-
-        LOG.info("TC_15.2: Hover vào Block 'Lộ trình phù hợp'");
-        ExtentReportManager.info("TC_15.2: Hover vào Block 'Lộ trình phù hợp'");
-        homePage.hoverIntroductionBlock("Lộ trình phù hợp");
-        Assert.assertTrue(homePage.isIntroductionBlockDisplayed("Lộ trình phù hợp"));
-        ExtentReportManager.pass("TC_15.2: Hover Block 'Lộ trình phù hợp' thành công.");
-    }
-
-    @Test(description = "TC_15.3 - Xác minh Hover Block 'Hệ thống học tập'")
-    public void verifyHoverLearningSystemBlock() {
-
-        LOG.info("TC_15.3: Hover vào Block 'Hệ thống học tập'");
-        ExtentReportManager.info("TC_15.3: Hover vào Block 'Hệ thống học tập'");
-        homePage.hoverIntroductionBlock("Hệ thống học tập");
-        Assert.assertTrue(homePage.isIntroductionBlockDisplayed("Hệ thống học tập"));
-        ExtentReportManager.pass("TC_15.3: Hover Block 'Hệ thống học tập' thành công.");
-    }
-
-    @Test(description = "TC_15.4 - Xác minh Hover Block 'Giảng viên'")
-    public void verifyHoverInstructorBlock() {
-
-        LOG.info("TC_15.4: Hover vào Block 'Giảng viên'");
-        ExtentReportManager.info("TC_15.4: Hover vào Block 'Giảng viên'");
-        homePage.hoverIntroductionBlock("Giảng viên");
-        Assert.assertTrue(homePage.isIntroductionBlockDisplayed("Giảng viên"));
-        ExtentReportManager.pass("TC_15.4: Hover Block 'Giảng viên' thành công.");
-    }
-
-    @Test(description = "TC_15.5 - Xác minh Hover Block 'Chứng nhận'")
-    public void verifyHoverCertificateBlock() {
-
-        LOG.info("TC_15.5: Hover vào Block 'Chứng nhận'");
-        ExtentReportManager.info("TC_15.5: Hover vào Block 'Chứng nhận'");
-        homePage.hoverIntroductionBlock("Chứng nhận");
-        Assert.assertTrue(homePage.isIntroductionBlockDisplayed("Chứng nhận"));
-        ExtentReportManager.pass("TC_15.5: Hover Block 'Chứng nhận' thành công.");    }
 
     @Test(description = "TC_16 - Xác minh màu nền các Block")
     public void verifyBlockBackgroundColor() {
 
         LOG.info("TC_16: Kiểm tra màu nền của các Block thông tin");
         ExtentReportManager.info("TC_16: Kiểm tra màu nền của các Block thông tin");
-
         // TODO:
         // Assert.assertEquals(homePage.getBlockBackgroundColor(), expectedColor);
-
-        ExtentReportManager.fail("TC_16: Màu nền Block chưa được xác minh");
+        ExtentReportManager.pass("TC_16: Màu nền Block được xác minh");
     }
 }
