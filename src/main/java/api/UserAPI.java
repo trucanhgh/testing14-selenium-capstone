@@ -12,7 +12,7 @@ public class UserAPI {
     private static final String TOKEN_CYBERSOFT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJUZXN0aW5nIDE0IiwiSGV0SGFuU3RyaW5nIjoiMTUvMTAvMjAyNiIsIkhldEhhblRpbWUiOiIxNzkyMDIyNDAwMDAwIiwibmJmIjoxNzY3ODkxNjAwLCJleHAiOjE3OTIxNzAwMDB9.DLVjgmwvBK8rzcWWgQA7dYOQuJZ55Vm5MThmUNcx8As";
 
     /**
-     * Đăng ký tài khoản User mới (Có sẵn trong hệ thống của bạn)
+     * Đăng ký tài khoản User mới
      */
     public static Response registerUser(String taiKhoan, String matKhau, String hoTen, String email, String soDT, String maNhom) {
         Map<String, String> body = new HashMap<>();
@@ -31,7 +31,7 @@ public class UserAPI {
     }
 
     /**
-     * Đăng nhập tài khoản để lấy mã Access Token (Dựa theo Postman Collection đính kèm)
+     * Đăng nhập tài khoản để lấy mã Access Token
      */
     public static Response loginUser(String taiKhoan, String matKhau) {
         Map<String, String> body = new HashMap<>();
@@ -52,12 +52,7 @@ public class UserAPI {
      * @param taiKhoan  Tên tài khoản người dùng thực hiện test (ví dụ: "trucanh")
      * @param userToken Access Token (Bearer) nhận được sau khi gọi hàm loginUser thành công
      */
-    /**
-     * Tự động Ghi danh (Đăng ký) một khóa học bằng Token hệ thống chung
-     */
-    /**
-     * Tự động Ghi danh (Đăng ký) một khóa học bằng cả Token hệ thống và Token của User
-     */
+
     public static Response enrollCourseViaAPI(String maKhoaHoc, String taiKhoan, String userToken) {
         Map<String, String> body = new HashMap<>();
         body.put("maKhoaHoc", maKhoaHoc);

@@ -35,12 +35,7 @@ public abstract class ProfileTestBase extends BaseTest {
      * Tự động Đăng nhập API -> Lấy Token -> Ghi danh danh sách khóa học cho User động vừa tạo
      * Giúp chuẩn bị trước data sạch hoàn toàn cho UI Test
      */
-    /**
-     * Ghi danh danh sách khóa học trực tiếp cho User động bằng token hệ thống
-     */
-    /**
-     * Ghi danh danh sách khóa học cho User động bằng cách lấy và sử dụng Access Token
-     */
+
     protected void enrollCoursesForDynamicUserViaAPI(String[] maKhoaHocList) {
         // 1. Gọi API login chính tài khoản vừa tạo để lấy Bearer Token học viên
         Response loginRes = UserAPI.loginUser(dynamicUser, dynamicPass);

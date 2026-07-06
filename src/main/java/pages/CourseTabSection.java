@@ -65,7 +65,6 @@ public class CourseTabSection extends CommonPage {
 	}
 
 	public void cancelCourseByName(String courseName) {
-		// Sửa lại XPath: Sửa lỗi cú pháp thừa dấu ']' và tối ưu việc tìm theo tên khóa học
 		String xpathCancelBtn = String.format(
 				"//div[contains(@class, 'myCourseItem') and .//h6[contains(normalize-space(), '%s')]]//button[contains(@class, 'btnGlobal')]",
 				courseName

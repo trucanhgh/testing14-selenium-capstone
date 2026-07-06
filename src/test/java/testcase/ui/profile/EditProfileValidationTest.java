@@ -1,6 +1,5 @@
 package testcase.ui.profile;
 
-import api.UserAPI;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
